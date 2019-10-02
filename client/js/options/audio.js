@@ -132,7 +132,8 @@ game.audio = {
   musics: [
     'RandomEncounter',
     'Perspectives',
-    'DeathandAxes'
+    'DeathandAxes',
+    'DrugWars'
   ],
   loadMusic: function () {
     $(game.audio.musics).each(function (a, b) {
