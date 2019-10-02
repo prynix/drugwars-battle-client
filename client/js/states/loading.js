@@ -114,8 +114,7 @@ game.states.loading = {
     return parsed;
   },
   messageListener: function(event){
-    console.log('data',event.data);
-    game.states.loading.battlejson(id,game.states.loading.updated);
+    game.states.loading.battlejson(event.data,game.states.loading.updated);
   },
   battlejson: function (ID,cb) {
         game.mode = 'online';
