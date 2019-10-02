@@ -39,7 +39,7 @@ game.states.table = {
   },
   music: function () {
     if (game.mode == 'library') game.audio.loopSong('Perspectives');
-    else game.audio.loopSong('DeathandAxes');
+    else game.audio.loopSong('DrugWars');
   },
   enableUnselect: function () {
     game.states.table.el.on('mousedown touchstart', function (event) { 
