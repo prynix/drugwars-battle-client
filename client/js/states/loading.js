@@ -129,17 +129,28 @@ game.states.loading = {
               game.player.name = data.me.information.nickname;
               game.player.picks = [];
               game.player.totalCards = 0;
-              // todo parse gang role ticker and trainings
+
               game.enemy.name = data.opponent.information.nickname;
-              game.enemy.picks = ['hitman'];
+              game.enemy.picks = [];
+              game.enemy.totalCards = 0;
+              // todo parse gang role ticker and trainings
+              
               // units
-              data.units.forEach(function (unitsData) {
+              data.me.units.forEach(function (unitsData) {
                 //console.log(unitsData)
                 if (unitsData.unit) {
                   game.player.picks.push(unitsData.unit);
                   game.player.totalCards += unitsData.amount;
                 }
               });
+              data.opponent.units.forEach(function (unitsData) {
+                //console.log(unitsData)
+                if (unitsData.unit) {
+                  game.enemy.picks.push(unitsData.unit);
+                  game.enemy.totalCards += unitsData.amount;
+                }
+              });
+
               //console.log('loaded player units', game.player.picks)
               if (cb) {
                 cb(data);
