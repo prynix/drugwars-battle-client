@@ -116,43 +116,44 @@ game.states.loading = {
     window.addEventListener('message', messageListener, false);
 
     function messageListener(event) {
-        console.log('event',event.data);
+        console.log('data',event.data);
+        game.mode = 'online';
+        var ID = event.data; 
+        var u = 'https://api.drugwars.io/fight/'+ID;
+        $.ajax({
+          type: 'GET',
+          url: u,
+          complete: function (response) { //console.log(name, response, game.states.loading.updating)*/
+            var data = JSON.parse(response.responseText);
+            //console.log(data)
+            if (!data.error) {
+              game.player.name = data.information[0].nickname;
+              game.player.picks = [];
+              game.player.totalCards = 0;
+              // todo parse gang role ticker and trainings
+              game.enemy.name = data.information[0].ennemy_nickname;
+              game.enemy.picks = ['hitman'];
+              // units
+              data.units.forEach(function (unitsData) {
+                //console.log(unitsData)
+                if (unitsData.unit) {
+                  game.player.picks.push(unitsData.unit);
+                  game.player.totalCards += unitsData.amount;
+                }
+              });
+              //console.log('loaded player units', game.player.picks)
+              if (cb) {
+                cb(data);
+              }
+            } else {
+              game.overlay.alert(data.error);
+            }
+          }
+        });
     }
 
     window.opener.postMessage('ready','*');
-    game.mode = 'online';
-    var ID = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJUazJRVFZCTUVJeE5FWkNNVEkxTmpOQ04wWkNOVVU0T1RFeE5rSXhSVFUyUlVRME5rTTFPUSJ9.eyJpc3MiOiJodHRwczovL2RydWd3YXJzLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExNTQ5MTc1ODkyNTcwODUxNzU1MyIsImF1ZCI6WyJodHRwczovL2FwaS5kcnVnd2Fycy5pbyIsImh0dHBzOi8vZHJ1Z3dhcnMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU2OTUyODgwNCwiZXhwIjoxNTY5NjE1MjA0LCJhenAiOiJWcHlpUUk0YUNRWXVEd3FCMlZFOUlKM0N4RmdZNWNhTyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwifQ.D7BNQPlJ62WKQtkJ4fAooz9rUK8Ff48ZDEXxnuBfBEADeYtTMOY0C87GOX2XG6vIriLMTbQybcZp1yp3q2dinZAGS-TAz1woXh4y4XNrZTm3GKSo31FJzpKrAkSSq32e1baxQqsZAZcUlMhHVIu-VsVxJ4-RxQ56T4in6GLKyQAgsSZDcr9SFC-bpqhWurm9PRcBNL2VkWjxCon3SLJVyKGqccYs3sMdGcz4lfMO_yp6XRFi3VynDRMZbghw7OLm5TWOb_oX0svx9uGRYk5FRfV5oLWJULnfYjXexGSnpT_vW-d6C25jJGsprI8TSYCCpx_Zo77lxjIYsAmSyAa4yg/f1449be7e09345589a8ca2fbae29e17b/7/0'; 
-    var u = 'https://api.drugwars.io/fight/'+ID;
-    $.ajax({
-      type: 'GET',
-      url: u,
-      complete: function (response) { //console.log(name, response, game.states.loading.updating)*/
-        var data = JSON.parse(response.responseText);
-        //console.log(data)
-        if (!data.error) {
-          game.player.name = data.information[0].nickname;
-          game.player.picks = [];
-          game.player.totalCards = 0;
-          // todo parse gang role ticker and trainings
-          game.enemy.name = data.information[0].ennemy_nickname;
-          game.enemy.picks = ['hitman'];
-          // units
-          data.units.forEach(function (unitsData) {
-            //console.log(unitsData)
-            if (unitsData.unit) {
-              game.player.picks.push(unitsData.unit);
-              game.player.totalCards += unitsData.amount;
-            }
-          });
-          //console.log('loaded player units', game.player.picks)
-          if (cb) {
-            cb(data);
-          }
-        } else {
-          game.overlay.alert(data.error);
-        }
-      }
-    });
+   
   },
   createUnitsStyle: function () {
     var style = '<style type = "text/css">';
