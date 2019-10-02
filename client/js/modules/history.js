@@ -48,7 +48,9 @@ game.history = {
     var ctx = {state: state, recover: recover};
     if (game.debug) game.history.change.call(ctx, true);
     else {
-      var str = game.data.ui.welcome +' '+ game.getData('name') +'! '+ game.data.ui.log +'?';
+      //var str = game.data.ui.welcome +' '+ game.getData('name') +'! '+ game.data.ui.log +'?';
+      var str = game.data.ui.welcome +' '+ game.player.name +'! '+ game.data.ui.log +'?';
+
       game.overlay.confirm(game.history.change.bind(ctx), str);
     }
   },

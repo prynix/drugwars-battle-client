@@ -127,14 +127,22 @@ game.states.loading = {
             console.log(data);
             if (!data.error) {
               game.player.name = data.me.information.nickname;
+              game.player.picture = data.me.information.picture;
+              game.player.gang = data.me.information.gang;
+              game.player.ticker = data.me.information.ticker;
+              game.player.role = data.me.information.role;
               game.player.picks = [];
               game.player.totalCards = 0;
 
               game.enemy.name = data.opponent.information.nickname;
+              game.enemy.picture = data.opponent.information.picture;
+              game.enemy.gang = data.opponent.information.gang;
+              game.enemy.ticker = data.opponent.information.ticker;
+              game.enemy.role = data.opponent.information.role;
               game.enemy.picks = [];
               game.enemy.totalCards = 0;
               // todo parse gang role ticker and trainings
-              
+
               // units
               data.me.units.forEach(function (unitsData) {
                 //console.log(unitsData)
