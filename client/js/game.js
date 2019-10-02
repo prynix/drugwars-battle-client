@@ -1,6 +1,6 @@
 var game = {
   staticHost: 'https://api.drugwars.io/',
-  dynamicHost: 'https://battle.drugwars.io/',
+  dynamicHost: 'http://localhost:5000/',
   container: $('.game-container'),
   loader: $('<span>').addClass('loader'),
   message: $('<span>').addClass('message'),

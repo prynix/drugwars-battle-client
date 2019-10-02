@@ -41,9 +41,9 @@
 
 .card legend {
   color: white;
-  font-size: 14px;
+  font-size: 10px;
   text-transform: uppercase;
-  margin: 126px 0 0 15px;
+  margin: 130px 0 0 16px;
   line-height: 20px;
   white-space: nowrap;
   overflow: hidden;
@@ -94,14 +94,16 @@
   width: 101%;
   background-image: url(../img/bkg/fx.png);
   background-size: 100% 100%;
+  box-shadow: inset 0 0 0 8px #000;
+  border-radius: 14px;
 }
 
 
 .card fieldset h1 {
   cursor: inherit;
-  margin: 8px 6px;
+  margin: 4px 8px 6px;
   font-size: 20px;
-  font-weight: bold;
+  /* font-weight: bold; */
   float: left;
   line-height: 12px;
   letter-spacing: -0.4px;
@@ -111,28 +113,33 @@
 
 .card .current {
   position: absolute;
-  right: 7px;
-  letter-spacing: -0.4px;
-  top: 181px;
+  right: 8px;
+  letter-spacing: 0.4px;
+  top: 152px;
 }
 
 .card .current p {
-  font-weight: bold;
+  /* font-weight: bold; */
 }
 
 .card .current p b {
-  font-size: 6px;
+  font-size: 7px;
   line-height: 9px;
   /* display: block; */
   color: #e9b008;
   display: block;
+}
+.card .current .amount {
+  margin: 0 0 8px 0;
+  font-size: 17px;
+  text-align: center;
 }
 
 .card .current span {
   text-align: center;
   line-height: 12px;
   display: block;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .card .current .hp span {
@@ -147,8 +154,9 @@
 
 .card .desc {
   clear: left;
-  padding: 0 6px;
-  font-size: 11px;
+  padding: 0 0 0 7px;
+  font-size: 10px;
+  width: 145px;
 }
 
 .card .desc .dot {
@@ -173,36 +181,45 @@
   display: block;
   margin-bottom: 1px;
 }
-
-.table .card.heroes .description,
-.table .card.units .description {
-  display: none;
+.card .desc .title {
+  color: #e9b008;
+  margin: 0 4px;
+  text-shadow: 
+     5px  2px 2px #000, 
+     5px -2px 2px #000, 
+    -5px  2px 2px #000, 
+    -5px -2px 2px #000;
+  letter-spacing: 1px;
+  font-size: 9px;
 }
-
-.card .description {
-  font-style: italic;
-  font-size: 10px;
+.card .description, 
+.card .feature {
+  text-transform: uppercase;
+  text-align: left;
+  font-size: 7px;
   margin-top: 2px;
   margin-right: 2px;
   line-height: 13px;
   font-weight:  lighter;
+  letter-spacing: 0.7px;
 }
 
 .card.player {
   background-color: #404040;
-  background-image: url(../img/bkg/card.png);
+  background-image: url(../img/bkg/card-player.png);
   background-size: 100% 100%;
-}
+}/*
 .card.player.towers, .card.player.towers .portrait {
   background-color: #68d691;
 }
 
 .card.enemy.towers, .card.enemy.towers .portrait {
   background-color: #c5432c;
-}
+}*/
 
 .card.enemy, .card.enemy .portrait {
-  background-color: #c55f5f;
+  background-image: url(../img/bkg/card-enemy.png);
+  /* background-color: #c55f5f; */
 }
 
 .table.turn .map .card.player.illusion,

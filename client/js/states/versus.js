@@ -46,6 +46,7 @@ game.states.vs = {
       //console.log('.unit-'+pick)
       var unit = game.units.clone(game.player.unitsDeck.children('.unit-'+pick));
       unit.appendTo(game.states.vs.playerdeck);
+      $('.amount', unit).text('X'+game.player.cardsAmount[pick]);
     });
     game.states.vs.playerinfo.text(game.player.totalCards);
     /*game.deck.build({
@@ -79,8 +80,9 @@ game.states.vs = {
     game.enemy.picks.forEach(function (pick) {
       var unit = game.units.clone(game.enemy.unitsDeck.children('.unit-'+pick));
       unit.appendTo(game.states.vs.enemydeck);
+      $('.amount', unit).text('X'+game.enemy.cardsAmount[pick]);
     });
-    game.states.vs.playerinfo.text(game.player.totalCards);
+    game.states.vs.enemyinfo.text(game.enemy.totalCards);
     /*game.deck.build({
     /*game.deck.build({
       name: 'units',
