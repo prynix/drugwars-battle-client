@@ -21,10 +21,11 @@ game.units = {
     return card.clone().data(card.data());
   },
   buy: function (side) {
-    game.player.picks.forEach(function (pick) {
+    game[side].picks.forEach(function (pick) {
       var unit = game.units.clone(game[side].unitsDeck.children('.unit-'+pick));
       unit.appendTo(game[side].skills.hand);
       unit.on('mousedown touchstart', game.card.select);
+      $('.amount', unit).text('X'+game[side].cardsAmount[pick]);
       if (!(side == 'player' || game.mode == 'library' || game.mode == 'local')) {
         unit.addClass('flipped');
       }

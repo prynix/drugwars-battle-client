@@ -22,6 +22,8 @@ game.states.loading = {
         game.states.loading.createUnitsStyle();
         game.states.loading.updated();
       });
+      // game.states.loading.json('ui', game.states.loading.updated, true);
+      // game.states.loading.battlejson(game.states.loading.updated);
     });
     game.states.loading.progress();
   },
@@ -108,6 +110,7 @@ game.states.loading = {
       parsed[npc][i]['damage type'] = data[i].dmg_type;
       parsed[npc][i].hp = data[i].health;
       parsed[npc][i].damage = data[i].attack;
+      parsed[npc][i].description = data[i].desc;
       //parsed[npc][i].id =  npc + '-' + name;
     }
     return parsed;
@@ -118,22 +121,23 @@ game.states.loading = {
 
   },
   battlejson: function (id,cb) {
-        game.mode = 'online';
-        var u = 'https://api.drugwars.io/fight/'+id;
-        $.ajax({
-          type: 'GET',
-          url: u,
-          complete: function (response) { //console.log(name, response, game.states.loading.updating)*/
-            var data = JSON.parse(response.responseText);
-            //console.log(data);
-            if (!data.error) {
-              game.player.name = data.me.information.nickname;
+    game.mode = 'online';
+    var u = 'https://api.drugwars.io/fight/'+id;
+    $.ajax({
+      type: 'GET',
+      url: u,
+      complete: function (response) { //console.log(name, response, game.states.loading.updating)*/
+        var data = JSON.parse(response.responseText);
+        //console.log(data)
+        if (!data.error) {
+          game.player.name = data.me.information.nickname;
               game.player.picture = data.me.information.picture;
               game.player.gang = data.me.information.gang;
               game.player.ticker = data.me.information.ticker;
               game.player.role = data.me.information.role;
               game.player.picks = [];
               game.player.totalCards = 0;
+              game.player.cardsAmount = data.me.units;
 
               game.enemy.name = data.opponent.information.nickname;
               game.enemy.picture = data.opponent.information.picture;
@@ -142,41 +146,41 @@ game.states.loading = {
               game.enemy.role = data.opponent.information.role;
               game.enemy.picks = [];
               game.enemy.totalCards = 0;
-              // todo parse gang role ticker and trainings
+              game.enemy.cardsAmount = data.opponent.units;
 
-              // units
-              data.me.units.forEach(function (unit) {
-                //console.log(unitsData)
-                if (unit.key) {
-                  game.player.picks.push(unit.key);
-                  game.player.totalCards += data.me.units.length;
-                }
-              });
-              data.opponent.units.forEach(function (unit) {
-                //console.log(unitsData)
-                if (unit.key) {
-                  game.enemy.picks.push(unit.key);
-                  game.enemy.totalCards += data.opponent.units.length;
-                }
-              });
 
-              //console.log('loaded player units', game.player.picks)
-              if (cb) {
-                cb(data);
-              }
-            } else {
-              game.overlay.alert(data.error);
+          // units
+          data.me.units.forEach(function (unit) {
+            //console.log(unitsData)
+            if (unit.key && unit.amount>0) {
+              game.player.picks.push(unit.key);
+              game.player.cardsAmount[unit.key] = unit.amount;
+              game.player.totalCards += unit.amount;
             }
+          });
+          data.opponent.units.forEach(function (unit) {
+            //console.log(unitsData)
+            if (unit.key && unit.amount>0) {
+              game.enemy.picks.push(unit.key);
+              game.enemy.cardsAmount[unit.key] = unit.amount;
+              game.enemy.totalCards += unit.amount;
+            }
+          });
+          //console.log('loaded player units', game.player.picks)
+          if (cb) {
+            cb(data);
           }
-        });
-
-   
+        } else {
+          game.overlay.alert(data.error);
+        }
+      }
+    });
   },
   createUnitsStyle: function () {
     var style = '<style type = "text/css">';
     for (var unittype in game.data.units) {
       for (var unit in game.data.units[unittype]) {
-        style += '.units.unit-'+unit+' .img { background-image: url("../img/units/'+unit+'.png"); }';
+        style += '.units.unit-'+unit+' .img { background-image: url("//img.drugwars.io/cards/units/'+unit+'.png"); }';
       }
     }
     style += '</style>';

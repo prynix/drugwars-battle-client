@@ -58,6 +58,7 @@ game.card = {
     $('<div>').appendTo(portrait).addClass('overlay');
     $('<h1>').addClass('type').appendTo(fieldset).text(data.name);
     current = $('<div>').addClass('current').appendTo(fieldset);
+    $('<p>').addClass('amount').appendTo(current).text('X');
     if (data.damage) {
       $('<p>').addClass('damage').appendTo(current).html('<b>ATTACK</b><span>' + data.damage + '</span>');
       data['current damage'] = data.damage;
@@ -67,7 +68,7 @@ game.card = {
       data['current hp'] = data.hp;
     }   
     if (data.speed) {
-      $('<p>').addClass('speed').appendTo(current).html('<b>'+game.data.ui.speed + '</b><span>' + data.speed + '</span>');
+      $('<p>').addClass('speed').appendTo(current).html('<b>SPEED</b><span>' + data.speed + '</span>');
       if (typeof(data.speed) == 'number') {
         data.speedInt = data.speed;
         data.speed = game.map.getRangeStr(data.speed);
@@ -79,6 +80,12 @@ game.card = {
       data['current capacity'] = data.capacity;
     }
     desc = $('<div>').addClass('desc').appendTo(fieldset);
+    $('<p>').appendTo(desc).text('UNIQUE').addClass('title');
+    if (data.feature) {
+      $('<p>').appendTo(desc).addClass('feature').text(data.feature);
+      //card.attr({ title: data.name + ': ' + data.description });
+    }
+    /*
     if (data.dot) {
       $('<p>').appendTo(desc).text(game.data.ui.dot + ': ').addClass('dot').append($('<span>').text(data.dot));
       opt.dot = true;
@@ -123,6 +130,19 @@ game.card = {
     }
     if (data.stun && data.stun > 1) 
       $('<p>').appendTo(desc).text(game.data.ui.stun+' '+game.data.ui.duration + ': ' + data.stun + ' ' + game.data.ui.turns);
+    */
+    //console.log(data)
+    $('<p>').appendTo(desc).text('DESCRIPTION').addClass('title');
+    if (data.description) {
+      $('<p>').appendTo(desc).addClass('description').text(data.description);
+      //card.attr({ title: data.name + ': ' + data.description });
+    }
+    /*card.attr({ title: data.name });*/
+    if (data.kd) {
+      $('<p>').addClass('kd').appendTo(desc).html(game.data.ui.kd + ': <span class="kills">0</span>/<span class="deaths">0</span>');
+      data.kills = 0;
+      data.deaths = 0;
+    }
     //BUFFS
     opt = game.card.buffs(data, desc, current, opt);
     opt.buff = true;
@@ -141,22 +161,14 @@ game.card = {
         }
       }
     }
+    /*
     if (data.heal) 
       $('<p>').appendTo(desc).text(game.data.ui.heal + ': ' + data.heal);
     if (data['cards per turn'])
         $('<p>').appendTo(desc).text(game.data.ui.cards + ': ' + data['cards per turn']);
     if (data['skill cards'])
       $('<p>').appendTo(desc).text(game.data.ui.cards+': ' + data['skill cards']);
-    if (data.description) {
-      $('<p>').appendTo(desc).addClass('description').text('“'+data.description+'”');
-      //card.attr({ title: data.name + ': ' + data.description });
-    }
-    /*card.attr({ title: data.name });*/
-    if (data.kd) {
-      $('<p>').addClass('kd').appendTo(desc).html(game.data.ui.kd + ': <span class="kills">0</span>/<span class="deaths">0</span>');
-      data.kills = 0;
-      data.deaths = 0;
-    }
+    */
     if (data.buffsBox)
       $('<div>').addClass('buffs').appendTo(fieldset);
     $.each(data, function(item, value) {    

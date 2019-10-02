@@ -57,6 +57,7 @@ small {
 
 noscript {
   display: block;
+  line-height: 28px; 
 }
 
 .game-container {
@@ -75,9 +76,6 @@ noscript {
   image-rendering: crisp-edges;
   image-rendering: optimizeSpeed;
   will-change: transform;
-}
-.game-container.loaded {
-  image-rendering: auto;
   background-image: url(../img/bkg/dw.png) !important;
   background-size: cover;
 }
