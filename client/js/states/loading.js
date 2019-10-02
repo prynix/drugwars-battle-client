@@ -8,6 +8,8 @@ game.states.loading = {
     this.el = $('.state.loading').removeClass('hidden');
     this.h2 = $('.state.loading .loadtext');
     this.box = $('.state.loading .box');
+    window.addEventListener('message', messageListener, false);
+
   },
   start: function () {
     if (game.debug) game.states.loading.ping();
@@ -21,7 +23,6 @@ game.states.loading = {
         game.states.loading.updated();
       });
       game.states.loading.json('ui', game.states.loading.updated, true);
-      game.states.loading.battlejson(game.states.loading.updated);
     });
     game.states.loading.progress();
   },
@@ -112,13 +113,14 @@ game.states.loading = {
     }
     return parsed;
   },
-  battlejson: function (cb) {
-    window.addEventListener('message', messageListener, false);
+  messageListener: function(event){
+    console.log('data',event.data);
+    game.states.loading.battlejson(id,game.states.loading.updated);
+    window.opener.postMessage('ready','*');
+  },
 
-    function messageListener(event) {
-        console.log('data',event.data);
+  battlejson: function (ID,cb) {
         game.mode = 'online';
-        var ID = event.data; 
         var u = 'https://api.drugwars.io/fight/'+ID;
         $.ajax({
           type: 'GET',
@@ -150,9 +152,7 @@ game.states.loading = {
             }
           }
         });
-    }
 
-    window.opener.postMessage('ready','*');
    
   },
   createUnitsStyle: function () {
