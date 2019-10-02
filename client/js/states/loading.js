@@ -113,6 +113,16 @@ game.states.loading = {
     return parsed;
   },
   battlejson: function (cb) {
+    window.addEventListener("message", receiveMessage, false);
+    function receiveMessage(event)
+    {
+      console.log(event);
+      if (event.origin !== "http://example.com:8080")
+        return;
+      event.source.postMessage("hi there yourself!  the secret response " +
+                               "is: rheeeeet!",
+                               event.origin);
+    }
     game.mode = 'online';
     var ID = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6IlJUazJRVFZCTUVJeE5FWkNNVEkxTmpOQ04wWkNOVVU0T1RFeE5rSXhSVFUyUlVRME5rTTFPUSJ9.eyJpc3MiOiJodHRwczovL2RydWd3YXJzLmF1dGgwLmNvbS8iLCJzdWIiOiJnb29nbGUtb2F1dGgyfDExNTQ5MTc1ODkyNTcwODUxNzU1MyIsImF1ZCI6WyJodHRwczovL2FwaS5kcnVnd2Fycy5pbyIsImh0dHBzOi8vZHJ1Z3dhcnMuYXV0aDAuY29tL3VzZXJpbmZvIl0sImlhdCI6MTU2OTUyODgwNCwiZXhwIjoxNTY5NjE1MjA0LCJhenAiOiJWcHlpUUk0YUNRWXVEd3FCMlZFOUlKM0N4RmdZNWNhTyIsInNjb3BlIjoib3BlbmlkIHByb2ZpbGUgZW1haWwifQ.D7BNQPlJ62WKQtkJ4fAooz9rUK8Ff48ZDEXxnuBfBEADeYtTMOY0C87GOX2XG6vIriLMTbQybcZp1yp3q2dinZAGS-TAz1woXh4y4XNrZTm3GKSo31FJzpKrAkSSq32e1baxQqsZAZcUlMhHVIu-VsVxJ4-RxQ56T4in6GLKyQAgsSZDcr9SFC-bpqhWurm9PRcBNL2VkWjxCon3SLJVyKGqccYs3sMdGcz4lfMO_yp6XRFi3VynDRMZbghw7OLm5TWOb_oX0svx9uGRYk5FRfV5oLWJULnfYjXexGSnpT_vW-d6C25jJGsprI8TSYCCpx_Zo77lxjIYsAmSyAa4yg/f1449be7e09345589a8ca2fbae29e17b/7/0'; 
     console.log(ID);
