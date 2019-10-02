@@ -1,0 +1,76 @@
+@font-face {
+  font-family: 'BebasNeue-Regular';
+  font-style: normal;
+  font-weight: 400;
+  src: local('OssBold'), url('../fonts/BebasNeue-Regular.woff2') format('woff2'), url('../fonts/BebasNeue-Regular.woff') format('woff');
+}
+
+h1, h2, input[type="text"], .button, .menu .icon span, .rank span, .rank li:before, 
+.card .damaged, .card .heal, .card .missed, .game-overlay .version, .baloon/*, .map .card .current .hp span*/ {
+  font-family: "BebasNeue-Regular", Impact, sans-serif;
+}
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('../fonts/BebasNeue-Regular.eot');
+  src: url('../fonts/BebasNeue-Regular.eot?#iefix') format('embedded-opentype'), url('../fonts/BebasNeue-Regular.woff') format('woff'), url('../fonts/BebasNeue-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'American Captain';
+  src: url('../fonts/AmericanCaptain.eot');
+  src: url('../fonts/AmericanCaptain.eot?#iefix') format('embedded-opentype'), url('../fonts/AmericanCaptain.woff') format('woff'), url('../fonts/AmericanCaptain.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Legend';
+  src: url('../fonts/Legend.woff') format('woff'), url('../fonts/Legend.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Hindenburg';
+  src: url('../fonts/Hindenburg.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Long_Shot';
+  src: url('../fonts/Long_Shot.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+h1,
+h2,
+input[type="text"],
+.button,
+.menu .icon span,
+.rank span,
+.rank li:before,
+.card .damaged,
+.card .heal,
+.card .missed,
+.game-overlay .version,
+.baloon {
+  font-family: "American Captain", Impact, sans-serif;
+}
+noscript,
+.card legend {
+  line-height: 28px;
+  font-family: "Bebas Neue", "Bebas Neue", "American Captain", "Lucida Sans Unicode", "Lucida Grande", 'Segoe UI', Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+.option-state .game-overlay span,
+.topbar *,
+.choose .counter,
+.vs.state .vsplayerinfo,
+.vs.state .vsenemyinfo {
+  font-family: "Bebas Neue", "American Captain", "Lucida Sans Unicode", "Lucida Grande", 'Segoe UI', Tahoma, Verdana, Arial, Helvetica, sans-serif;
+}
+.card .buffs .buff span,
+.baloon .battle,
+.versus,
+.log b,
+.rank li {
+  font-family: "American Captain", Impact, sans-serif;
+}

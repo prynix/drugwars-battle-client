@@ -1,0 +1,874 @@
+.card > * {
+  pointer-events: none;
+}
+
+.deck .card {
+  float: left;
+}
+
+
+.card {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+  transition: all 0.3s;
+  padding: 0;
+  width: 200px;
+  height: 300px;
+  border-radius: 14px;
+  z-index: 1;
+  color: #fff;
+  cursor: pointer;
+  transform: translateZ(0);
+  transform-style: preserve-3d;
+  background: #898;
+  will-change: transform;
+}
+
+.map .card.can-attack .current .hp span {
+  box-shadow: 5px 14px 0 -8px #ffbd00, 5px 16px 0 -8px #674f0c;
+}
+.map .card.can-move .current .hp span {
+  box-shadow: 5px 21px 0 -8px #41ce87, 5px 23px 0 -8px #1c5f3d;
+}
+.map .card.can-move.can-attack .current .hp span {
+  box-shadow: 5px 21px 0 -8px #41ce87, 5px 23px 0 -8px #1c5f3d, 5px 14px 0 -8px #ffbd00, 5px 16px 0 -8px #674f0c;
+}
+
+.card:hover {
+  z-index: 10;
+}
+
+.card legend {
+  color: white;
+  font-size: 14px;
+  text-transform: uppercase;
+  margin: 126px 0 0 15px;
+  line-height: 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card fieldset {
+  border-radius: 4px;
+  padding: 3px;
+  margin: 0 5px;
+  height: 140px;
+  width: 184px;
+  border: 0;
+  position: absolute;
+  top: 0;
+  padding-top: 146px;
+}
+
+.card .img {
+  display: block;
+  border-radius: 3px;
+  background-size: cover;
+  background-position: inherit;
+}
+
+.card .overlay {
+  box-shadow: 0 0 12px rgba(0,0,0,0.4) inset;
+  position: absolute;
+  top: 0;
+}
+
+.card .portrait {
+  position: absolute;
+  left: -5px;
+  top: 0;
+  height: 300px;
+  width: 200px;
+  background-size: cover;
+  background-position: 50% 50%;
+  z-index: -1;
+}
+.card .portrait .img {
+  background-color: rgba(255,255,255,0.15);
+}
+.card .portrait .img, .card .portrait .overlay {
+  height: 100%;
+  display: block;
+  width: 101%;
+  background-image: url(../img/bkg/fx.png);
+  background-size: 100% 100%;
+}
+
+
+.card fieldset h1 {
+  cursor: inherit;
+  margin: 8px 6px;
+  font-size: 20px;
+  font-weight: bold;
+  float: left;
+  line-height: 12px;
+  letter-spacing: -0.4px;
+  text-transform: uppercase;
+  color: #e9b008;
+}
+
+.card .current {
+  position: absolute;
+  right: 7px;
+  letter-spacing: -0.4px;
+  top: 181px;
+}
+
+.card .current p {
+  font-weight: bold;
+}
+
+.card .current p b {
+  font-size: 6px;
+  line-height: 9px;
+  /* display: block; */
+  color: #e9b008;
+  display: block;
+}
+
+.card .current span {
+  text-align: center;
+  line-height: 12px;
+  display: block;
+  font-size: 12px;
+}
+
+.card .current .hp span {
+  /* background: #beeb71; */
+}
+
+.card .current .damage span, .card .desc .dot span {
+  /* background: #ed8c8c; */
+  color: white;
+  /* font-weight: normal; */
+}
+
+.card .desc {
+  clear: left;
+  padding: 0 6px;
+  font-size: 11px;
+}
+
+.card .desc .dot {
+  position: relative;
+}
+.card .desc .dot span {
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  display: inline-block;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #ed8c8c;
+  margin: 0 5px;
+  text-align: center;
+}
+
+.card div p {
+  cursor: inherit;
+  text-align: justify;
+  margin: 0;
+  border: 0;
+  display: block;
+  margin-bottom: 1px;
+}
+
+.table .card.heroes .description,
+.table .card.units .description {
+  display: none;
+}
+
+.card .description {
+  font-style: italic;
+  font-size: 10px;
+  margin-top: 2px;
+  margin-right: 2px;
+  line-height: 13px;
+  font-weight:  lighter;
+}
+
+.card.player {
+  background-color: #404040;
+  background-image: url(../img/bkg/card.png);
+  background-size: 100% 100%;
+}
+.card.player.towers, .card.player.towers .portrait {
+  background-color: #68d691;
+}
+
+.card.enemy.towers, .card.enemy.towers .portrait {
+  background-color: #c5432c;
+}
+
+.card.enemy, .card.enemy .portrait {
+  background-color: #c55f5f;
+}
+
+.table.turn .map .card.player.illusion,
+.table.unturn .map .card.enemy.illusion {
+  background-color: #4db2dc;
+}
+.table.turn .map .card.player.illusion .portrait,
+.table.unturn .map .card.enemy.illusion .portrait {
+  opacity: 0.75;
+}
+.table.turn .map .card.player.illusion .current,
+.table.unturn .map .card.enemy.illusion .current, 
+.table.turn .map .card.player.illusion .current span,
+.table.unturn .map .card.enemy.illusion .current span {
+  background-color: transparent;
+  color: transparent;
+}
+
+.card.skills, .card.skills .portrait {
+  background-color: #277cd6;
+}
+
+.table .card.selected {
+  box-shadow: 0 0 0 3px white;
+}
+.table .map .card.selected {
+  box-shadow: 0 0 0 8px white;
+}
+
+.card.left-hand.skills, .card.left-hand.skills .portrait {
+  background-color: #4db2dc;
+}
+
+.card.skills[class*="ult"], .card.skills[class*="ult"] .portrait {
+  background-color: #8449ef;
+}
+
+.card.enemy.attacktarget {
+  box-shadow: 0 0 0 10px red;
+}
+
+.card.source {
+  box-shadow: 0 0 0 16px skyblue;
+}
+
+.card.enemyMoveHighlight {
+  box-shadow: 0 0 0 10px orange;
+}
+
+.card.enemyMoveHighlightTarget {
+  box-shadow: 0 0 0 10px yellow;
+}
+
+.card.targetarea {
+  box-shadow: 0 0 0 10px dodgerblue;
+}
+.card.casttarget {
+  box-shadow: 0 0 0 16px dodgerblue;
+}
+
+.card.dead {
+  background: silver;
+  -webkit-filter: grayscale(0.9);
+  filter: grayscale(0.9);
+  pointer-events: none;
+}
+
+.card .buffs {
+  position: absolute;
+  bottom: 3px;
+  left: 3px;
+  display: flex;
+  height: 34px;
+  width: 160px;
+}
+
+.card .buffs .buff {
+  margin-right: 2px;
+  pointer-events: auto;
+  transition: all 0.1s;
+  width: 35px;
+  background: transparent;
+  z-index: 2;
+  position: relative;
+}
+.card .buffs .buff span {
+  position: absolute;
+  color: white;
+  width: 34px;
+  height: 34px;
+  line-height: 34px;
+  text-align: center;
+  text-shadow: 0 0 1px black, 0 0 2px black;
+}
+
+.selectedarea .card .buffs .buff:hover {
+  transform: translateY(-16px) scale(2.5);
+  z-index: 10;
+}
+
+.selectedarea .card .buffs .buff:hover .img {
+  border-radius: 3px;
+  border: 1px solid white;
+}
+.selectedarea .card .buffs .buff:hover .overlay {
+  opacity: 0;
+}
+.card .buffs .buff .img , .card .buffs .buff .overlay {
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0,0,0,0.5) inset;
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  border: 2px solid #fff;
+  background-position: 50%;
+}
+.map .card .buffs .buff , .fromMap .card .buffs .buff {
+  transform: scale(1.4);
+}
+.table .deck .card {
+  top: 50%;
+  left: 40px;
+  transform: translate3d(-50%, -50%, 0) scale(0.5) rotate(0);
+  margin-right: -130px;
+}
+
+.table .deck .card:hover {
+  transform: translate3d(-50%, -50%, 0) scale(0.55) rotate(0);
+  z-index: 11;
+}
+
+.table .deck .card.on, .table .deck .card.channel-on {
+  transform: translate3d(-50%, -50%, 0) scale(0.5) rotate(-5deg);
+}
+.table .deck .card.on:hover, .table .deck .card.channel-on:hover {
+  transform: translate3d(-50%, -50%, 10px) scale(0.6) rotate(-5deg);
+}
+
+.table .deck .card.selected {
+  transform: translate3d(-50%, -50%, 0) scale(0.55) rotate(0);
+  z-index: 11;
+}
+
+.table .enemy .skills .card {
+  animation: enemybuyslide 2s;
+}
+
+.table .enemy .skills .card.channel-on {
+  transform: translate3d(-50%,-47%,0) scale(0.5) rotateY(185deg);
+}
+
+.local .table .enemy .skills .card.channel-on,
+.library .table .enemy .skills .card.channel-on {
+  transform: translate3d(-50%, -50%, 0) scale(0.5) rotateY(0deg) rotateZ(185deg);
+}
+
+@keyframes enemybuyslide {
+  0% {
+    left: -500vw;
+    top: 150%;
+    transform: translate(-50%, -50%) rotateY(-180deg) scale(0.6);
+  }
+
+  30% {
+    left: 40px;
+    top: 150%;
+    transform: translate(-50%, -50%) rotateY(-180deg) scale(0.6);
+  }
+
+  100% {
+    left: 40px;
+    top: 50%;
+  }
+}
+
+.table .enemy .skills .card.showMoves {
+  left: 500vw;
+  top: 150%;
+  pointer-events: none;
+  animation: enemyshowslide 2s 1;
+}
+
+@keyframes enemyshowslide {
+  0% {
+    left: 40px;
+    top: 50%;
+  }
+
+  70% {
+    left: 40px;
+    top: 200%;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+
+  100% {
+    left: 500vw;
+    top: 200%;
+    transform: translate(-50%, -50%) scale(0.6);
+  }
+}
+
+.table .enemy .skills .card.discardMove {
+  left: -1000px;
+  top: 150%;
+  pointer-events: none;
+  animation: enemydiscardslide 0.6s;
+}
+
+@keyframes enemydiscardslide {
+  0% {
+    left: 40px;
+    top: 50%;
+  }
+
+  100% {
+    left: 40px;
+    top: -50%;
+    transform: translate(-50%, -50%) scale(0.6) rotateY(-180deg);
+  }
+}
+
+.local .table .enemy .skills .card.discardMove,
+.table .table .enemy .skills .card.discardMove {
+  animation: enemyshowdiscardslide 0.6s;
+}
+
+@keyframes enemyshowdiscardslide {
+  0% {
+    left: 40px;
+    top: 50%;
+  }
+
+  100% {
+    left: 40px;
+    top: -50%;
+    transform: translate(-50%, -50%) scale(0.6) rotateZ(-180deg);
+  }
+}
+.states .table .card.flipped {
+  pointer-events: none;
+  transform: translate3d(-50%,-50%,0) scale(0.5) rotateY(-180deg);
+}
+.library .table .enemydecks .card, .local .table.unturn .enemydecks .card {
+  pointer-events: all;
+  transform: translate3d(-50%,-50%,0) scale(0.5) rotateZ(-180deg);
+}
+.library .table .enemydecks .card:hover,
+.local .table.unturn .enemydecks .card:hover,
+.local .table.unturn .enemydecks .card.selected {
+  pointer-events: all;
+  transform: translate3d(-50%,-50%,0) scale(0.6) rotateZ(-180deg);
+}
+
+.table .enemy .hand .card {
+  margin-right: -158px;
+}
+
+.table .enemy .sidehand .card {
+  margin-right: -150px;
+}
+
+.table .player .skills .card {
+  animation: playerbuyslide 1.2s;
+}
+
+.local .table .playerdecks .card,
+.local .table.unturn .playerdecks .card {
+  transform: translate3d(-50%, -50%, 0) scale(0.4) rotateY(180deg);
+}
+.local .table.turn .playerdecks .card {
+  transform: translate3d(-50%, -50%, 0) scale(0.5) rotateY(0);
+}
+
+.local .table.turn .playerdecks .card:hover,
+.local .table.turn .playerdecks .card.selected {
+  transform: translate3d(-50%, -50%, 0) scale(0.6) rotateY(0);
+}
+
+.local .table .enemydecks .card {
+  transform: translate3d(-50%, -50%, 0) scale(0.4) rotateY(180deg) rotateZ(180deg);
+}
+.local .table.unturn .enemydecks .card {
+  transform: translate3d(-50%, -50%, 0) scale(0.5) rotateY(0) rotateZ(-180deg);
+}
+
+
+.table .player .skills .card.slidedown {
+  transform: translate3d(-50%, 15%, 0) scale(0.5);
+}
+
+.table .player .skills .card.blink {
+  animation: playerbuyslide 1.2s, cardblink 1s infinite;
+}
+
+@keyframes playerbuyslide {
+  0% {
+    left: -1000px;
+    top: -50%;
+    transform: translate(-50%, -50%) scale(0.7) rotateY(179deg) rotate(0);
+  }
+
+  30% {
+    left: 40px;
+    top: -50%;
+    transform: translate(-50%, -50%) scale(0.7) rotateY(179deg) rotate(0);
+  }
+
+  100% {
+    left: 40px;
+    top: 50%;
+  }
+}
+
+.selectedarea .selectedcard {
+  width: 240px;
+  height: 360px;
+  transition: all 0.2s;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transform: rotateY(-180deg);
+}
+
+.selectedarea .selectedcard.flip {
+  transform: rotateY(0);
+}
+
+.selectedarea .selectedcard.flip:hover {
+  /* z-index: 11; */
+}
+
+.table .selectedarea .card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform-origin: 200px 0;
+  transform: translate3d(-80px, -180px, 1px) scale(1.2);
+  cursor: default;
+  transition: all 0s, transform 0.1s;
+  overflow: hidden;
+}
+.table .selectedarea .selectedcard.flip .card.zoom {
+   transform: translate(-78px, -216px) scale(2);
+}
+
+.table .selectedarea .cardback:before, .skills.card:after, .units.card:after, .items.card:after {
+  /* background-image: url(https://drugwars.io/img/cards/background/Layer%201%20-%20Heroes%20card%20Backsidel-08.png); */
+  /* background-position: 0% 9%; */
+}
+.table .selectedarea .cardback, .skills.card:after, .units.card:after, .items.card:after {
+  background-size: cover;
+  background-position: 50%;
+  position: absolute;
+  padding: 0;
+  width: 240px;
+  height: 360px;
+  border-radius: 14px;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, -1px) rotateY(180deg);
+}
+.table .selectedarea .cardback:before {
+  content: "";
+  display: block;
+  height: 360px;
+  width: 240px;
+  background-size: cover;
+  background-position: 50%;
+  border-radius: 8px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+}
+.table .selectedarea .cardback,
+.skills.card:before, .units.card:before, .items.card:before {
+  background-color: #7d786b;
+  background-image: url(../img/cardback.png);
+  background-size: 102% 100%;
+} 
+
+.table .selectedarea .card .damaged,
+.table .selectedarea .card .heal,
+.table .selectedarea .card .missed {
+  display: none;
+}
+
+.table .deck.skills.enemy .card {
+  z-index: 3;
+  margin-right: -100px;
+}
+
+.skills.card, .units.card, .items.card {
+  /* backface-visibility: hidden; */
+  pointer-events: all;
+}
+
+.table .deck .items.card:before, .table .deck .items.card:after,
+.table .deck .units.card:before, .table .deck .units.card:after,
+.table .deck .skills.card:before, .table .deck .skills.card:after {
+  content: "";
+  display: block;
+  width: 200px;
+  height: 300px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate3d(0,0,-1px) rotateY(180deg);
+  border-radius: 8px;
+  z-index: 29;
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+}
+
+.skills.card:before, .units.card:before, .items.card:before {
+  background-color: #7d786b;
+  background-size: cover;
+}
+
+.states .table .map .card {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 2px);
+  transform-style: preserve-3d;
+}
+
+.map .card.invisible .portrait {
+  opacity: 0.7;
+}
+.map .enemyarea .card.player.invisible .portrait,
+.map .playerarea .card.enemy.invisible .portrait {
+  opacity: 1;
+}
+
+.library .map .card.enemy.invisible .portrait {
+  opacity: 0.7;
+}
+
+.map .card.enemy.invisible,
+.local .table .card.invisible,
+.local .table.turn .card.enemy.invisible,
+.local .table.unturn .card.player.invisible {
+  display: none;
+}
+.local .table.unturn .map .card.enemy.invisible,
+.local .table.turn .map .card.player.invisible,
+.map .playerarea .card.enemy.invisible,
+.map .enemyrarea .card.player.invisible,
+.library .map .card.invisible  {
+  display: inline-block;
+}
+
+.states .table .map .spot:hover .card, .states .table .map .card.selected {
+  transform: translate3d(-50%, -50%, 40px) rotateX(-14deg);
+}
+
+.map .card.enemy .current .hp span {
+  background: #ed8c8c;
+  color: white;
+}
+
+.map .card .current .hp span {
+  /* font-size: 14px; */
+}
+.map .card.towers .current .hp span {
+  width: 19px;
+  height: 20px;
+  line-height: 20px;
+}
+.map .card.towers.player .current .hp span {
+  background: #a9f38b;
+  border: 2px solid #e2f5c2;
+  transform: translate(-15px, -5px) scale(7);
+}
+.map .card.towers.enemy .current .hp span {
+  background: #e87070;
+  border: 2px solid #ed8c8c;
+  transform: translate(-15px, -5px) scale(7);
+}
+
+
+.enemy.heroes .portrait .img {
+  transform: scaleX(-1);
+}
+
+/*DRAG*/
+.vs .card .kd, .bkgdeck .card .kd, .choose .card .kd, .card.dragTargetClone.choose .kd, .choose .card .damaged, .choose .card .heal, .choose .card .speed {
+  display: none;
+}
+
+.card.dragTarget {
+  transition: all 0s;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.card.dragTargetClone {
+  transition: transform 0.1s;
+  position: absolute;
+  z-index: 30;
+  transform-origin: 0 0;
+  pointer-events: none;
+  transform: translateZ(1px);
+}
+
+.card.dragTargetClone.choose {
+  transform: scale(0.75) translateZ(1px);
+}
+
+.card.dragTargetClone.choose.drop {
+  box-shadow: 0 0 0 5px white;
+}
+
+.card.dragTargetClone.table {
+  transform: scale(0.35) translateZ(1px);
+}
+
+.card.dragTargetClone.table.drop,
+.card.dragTargetClone.table.drop.fromHand,
+.card.dragTargetClone.table.drop.fromMap {
+  box-shadow: 0 0 0 10px white;
+}
+
+.card.dragTargetClone.table.fromHand {
+  transform: scale(0.45) translateZ(1px);
+}
+
+.local .card.dragTargetClone.enemy.fromHand.table,
+.library .card.dragTargetClone.enemy.fromHand.table {
+  transform: rotate(180deg) translate3d(-40%, -40%, 1px) scale(0.4);
+}
+.local .card.dragTargetClone.drop.enemy.fromHand.table,
+.library .card.dragTargetClone.drop.enemy.fromHand.table {
+  box-shadow: 0 0 0 10px white;
+}
+
+.map .card legend, .card.dragTargetClone.fromMap legend {
+  display: none;
+}
+
+.map .card h1, .map .card .desc,
+.card.dragTargetClone.fromMap h1, .card.dragTargetClone.fromMap .desc {
+  display: none;
+}
+
+.map .card .buffs,
+.fromMap.card .buffs {
+  position: relative;
+  top: -32px;
+  left: 0px;
+}
+
+.map .card.ghost .buff {
+  display: none;
+}
+
+.map .card fieldset, .card.dragTargetClone.fromMap fieldset {
+  padding: 0;
+  margin: 18px 5px;
+  background-color: rgba(247, 250, 227, 0.6);
+}
+
+.map .card .portrait .img, .map .card .portrait .overlay, .card.dragTargetClone.fromMap .portrait .img, .card.dragTargetClone.fromMap .portrait .overlay {
+  height: 265px;
+}
+
+.map .card .current, .card.dragTargetClone.fromMap .current {
+  top: 22px;
+  right: 18px;
+}
+
+.map .card .current .damage, .card.dragTargetClone.fromMap .current .damage {
+  display: none;
+}
+
+.map .card .current .hp span, .card.dragTargetClone.fromMap .current .hp span {
+  transform: translate(-10px, -4px) scale(6.4);
+  padding-right: 1px;
+  width: 21px;
+}
+
+/*TOWERS*/
+.player.towers .img {
+  background-image: url("../img/towers/tower-player.jpg");
+}
+.player.towers .portrait, .campaign-img.tower {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAADCAIAAADUVFKvAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA1ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0iRTY5MUYwQkIwQThEMTExMzk0QjFFMzBDRDc2NzAwRDAiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjFBRDJGMENDMDA0MTFFN0IwNENFRjgwODk1NURDOTgiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjFBRDJGMEJDMDA0MTFFN0IwNENFRjgwODk1NURDOTgiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiAoV2luZG93cykiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDpERTZEMjkwMjYxOUVFNzExQkY5QkY0MjJGRjIxOEE3QiIgc3RSZWY6ZG9jdW1lbnRJRD0iRTY5MUYwQkIwQThEMTExMzk0QjFFMzBDRDc2NzAwRDAiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz50evNTAAAAPklEQVR42gAwAM//Af6gRdQqWwb//SbSkQEuYAH/9LOwzvbw+QNgKOLyHGUErtQG8PPyAQwUyvketqikAgwAahYZoVZshwQAAAAASUVORK5CYII=');
+}
+
+.enemy.towers .img {
+  background-image: url("../img/towers/tower-enemy.jpg");
+}
+.enemy.towers .portrait {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAADCAIAAADUVFKvAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MUQ2OTUzRTdDMDA1MTFFNzgxMTRBNzlDMUY1RDhDMTEiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MUQ2OTUzRTZDMDA1MTFFNzgxMTRBNzlDMUY1RDhDMTEiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiBXaW5kb3dzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9IkUyNDYyMEQwQjQyNDMyMkVEQzhDRDdFRTRDNTIxMzBCIiBzdFJlZjpkb2N1bWVudElEPSJFMjQ2MjBEMEI0MjQzMjJFREM4Q0Q3RUU0QzUyMTMwQiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PrkaSOAAAAA+SURBVHjaADAAz/8BUDhJAAEH+fjq6fnxIxImAxIMGvwD/TD+9ez27en9BAL6+fwOAf3C9ur4BP8iDAcCDAAumBjGgdmiagAAAABJRU5ErkJggg==');
+}
+
+.map .card.enemy.towers .img {
+  background-position: 70% 50%
+}
+
+.map .card.player.towers .img {
+  background-position: 40% 50%
+}
+
+/*UNITS*/
+.card.trees, .card.trees .portrait {
+  background-color: #5ba22f;
+}
+
+.card.trees .portrait, .campaign-img.tree {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAADCAIAAADUVFKvAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6OTcxRURDM0FDMDBCMTFFNzlDQUY5MjdCRUZBQTI2QjgiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6OTcxRURDMzlDMDBCMTFFNzlDQUY5MjdCRUZBQTI2QjgiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiBXaW5kb3dzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9IjgwRDU0QkQ3MkE1Q0E4MUVFQzYxRUIzNUFBQkQ3QUFGIiBzdFJlZjpkb2N1bWVudElEPSI4MEQ1NEJENzJBNUNBODFFRUM2MUVCMzVBQUJEN0FBRiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PsSeaXUAAAA+SURBVHjaADAAz/8E0P3/yu+/8wID7QH/BRA/BOjq0du6iNK9ux8mIwNKfAM1SAIA8gj18SMaIR8n/+ICDABkBRaoPF445QAAAABJRU5ErkJggg==');
+}
+
+.card.trees.rad .img {
+  background-image: url("../img/trees/tree_rad.jpg");
+}
+
+.card.trees.dire .img {
+  background-image: url("../img/trees/tree_dire.jpg");
+}
+
+.creeps-melee.player .img {
+  background-image: url("../img/creeps/player_melee.jpg");
+}
+.map .card.creeps-melee.player .portrait .img {
+  background-position: 75% 75%;
+  background-size: 360%;
+}
+
+.creeps-melee.enemy .img {
+  background-image: url("../img/creeps/enemy_melee.jpg");
+}
+.creeps-melee.player .portrait {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAADCAIAAADUVFKvAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6QzE2MjcyNjVDMDAyMTFFN0E2NDdFRDBDNjk0ODBERUYiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6QzE2MjcyNjRDMDAyMTFFN0E2NDdFRDBDNjk0ODBERUYiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiBXaW5kb3dzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9IkEzOEFCMTE4OTE3M0IzOUYxMkFFNkU2MERBQ0VCQzEwIiBzdFJlZjpkb2N1bWVudElEPSJBMzhBQjExODkxNzNCMzlGMTJBRTZFNjBEQUNFQkMxMCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PnKUQ0MAAAA+SURBVHjaADAAz/8Bxd+g9Pm7AfAJDwT1FRooBAPvtMK+4+jz7TITF1E77AIoExIC+u70zD/t3xIJEBgCDAA8mhY3uBy5OAAAAABJRU5ErkJggg==');
+}
+.map .card.creeps-melee.enemy .portrait .img {
+  background-position: 15% 30%;
+  background-size: 400%;
+}
+
+.creeps-ranged.player .img {
+  background-image: url("../img/creeps/player_ranged.jpg");
+}
+.creeps-ranged.player .portrait {
+  background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAADCAIAAADUVFKvAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAxBpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMy1jMDExIDY2LjE0NTY2MSwgMjAxMi8wMi8wNi0xNDo1NjoyNyAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6RkIyQjVCQkZDMDAyMTFFNzg3N0VCQzQ0ODg4NTc4RjciIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6RkIyQjVCQkVDMDAyMTFFNzg3N0VCQzQ0ODg4NTc4RjciIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNiBXaW5kb3dzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9IjAxOTc4MkU5OEEyNTVDODFFQkMzOTYwMjlBNEYzQTBFIiBzdFJlZjpkb2N1bWVudElEPSIwMTk3ODJFOThBMjU1QzgxRUJDMzk2MDI5QTRGM0EwRSIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PlGGaJ8AAAA+SURBVHjaADAAz/8Eeo9uaFdr6ADX2ubc4dboBBgBD/LouOfu8v36/x0OIANASBmoltz5+h8K/wfOvNUCDACCeRqlaSK/RgAAAABJRU5ErkJggg==');
+}
+.map .card.creeps-ranged.player .img {
+  background-position: 20% 50%;
+}
+
+.creeps-ranged.enemy .img {
+  background-image: url("../img/creeps/enemy_ranged.jpg");
+}
+.map .card.creeps-ranged.enemy .img {
+  background-position: 60% 50%;
+}
+
+
+.card.creeps-catapult.player .img {
+  background-image: url("../img/creeps/player_catapult.jpg");
+}
+.card.creeps-catapult.enemy .img {
+  background-image: url("../img/creeps/enemy_catapult.jpg");
+}
+.map .card.creeps-catapult.enemy .img {
+  background-position: 55% 50%;
+  background-size: 300%;
+}
