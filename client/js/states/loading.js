@@ -127,7 +127,7 @@ game.states.loading = {
           url: u,
           complete: function (response) { //console.log(name, response, game.states.loading.updating)*/
             var data = JSON.parse(response.responseText);
-            //console.log(data)
+            console.log(data);
             if (!data.error) {
               game.player.name = data.information[0].nickname;
               game.player.picks = [];
