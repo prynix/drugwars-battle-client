@@ -8,8 +8,8 @@ game.states.loading = {
     this.el = $('.state.loading').removeClass('hidden');
     this.h2 = $('.state.loading .loadtext');
     this.box = $('.state.loading .box');
-    window.addEventListener('message', messageListener, false);
-
+    window.addEventListener('message', game.states.loading.messageListener, false);
+    window.opener.postMessage('ready','*');
   },
   start: function () {
     if (game.debug) game.states.loading.ping();
@@ -116,9 +116,7 @@ game.states.loading = {
   messageListener: function(event){
     console.log('data',event.data);
     game.states.loading.battlejson(id,game.states.loading.updated);
-    window.opener.postMessage('ready','*');
   },
-
   battlejson: function (ID,cb) {
         game.mode = 'online';
         var u = 'https://api.drugwars.io/fight/'+ID;
