@@ -22,7 +22,6 @@ game.states.loading = {
         game.states.loading.createUnitsStyle();
         game.states.loading.updated();
       });
-      game.states.loading.json('ui', game.states.loading.updated, true);
     });
     game.states.loading.progress();
   },
@@ -115,6 +114,8 @@ game.states.loading = {
   },
   messageListener: function(event){
     game.states.loading.battlejson(event.data,game.states.loading.updated);
+    game.states.loading.json('ui', game.states.loading.updated, true);
+
   },
   battlejson: function (id,cb) {
         game.mode = 'online';
