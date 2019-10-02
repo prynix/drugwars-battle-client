@@ -116,9 +116,9 @@ game.states.loading = {
   messageListener: function(event){
     game.states.loading.battlejson(event.data,game.states.loading.updated);
   },
-  battlejson: function (ID,cb) {
+  battlejson: function (id,cb) {
         game.mode = 'online';
-        var u = 'https://api.drugwars.io/fight/'+ID;
+        var u = 'https://api.drugwars.io/fight/'+id;
         $.ajax({
           type: 'GET',
           url: u,
@@ -126,11 +126,11 @@ game.states.loading = {
             var data = JSON.parse(response.responseText);
             console.log(data);
             if (!data.error) {
-              game.player.name = data.information[0].nickname;
+              game.player.name = data.me.information.nickname;
               game.player.picks = [];
               game.player.totalCards = 0;
               // todo parse gang role ticker and trainings
-              game.enemy.name = data.information[0].ennemy_nickname;
+              game.enemy.name = data.opponent.information.nickname;
               game.enemy.picks = ['hitman'];
               // units
               data.units.forEach(function (unitsData) {
