@@ -8,14 +8,14 @@
   "engine": "node >= 0.10.x",
   "repository": {
     "type": "git",
-    "url": "https://github.com/rafaelcastrocouto/drugwars-battleclient"
+    "url": "https://github.com/FutureShockco/drugwars-battle-client"
   },
   "main": "server.js",
   "scripts": {
     "start": "node server.js"
   },
   "bugs": {
-    "url": "https://github.com/rafaelcastrocouto/drugwars-battleclient/issues"
+    "url": "https://github.com/FutureShockco/drugwars-battle-client/issues"
   },
   "keywords": [
     "cardgame",
