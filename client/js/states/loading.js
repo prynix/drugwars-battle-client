@@ -145,18 +145,18 @@ game.states.loading = {
               // todo parse gang role ticker and trainings
 
               // units
-              data.me.units.forEach(function (unitsData) {
+              data.me.units.forEach(function (unit) {
                 //console.log(unitsData)
-                if (unitsData.unit) {
-                  game.player.picks.push(unitsData.unit);
-                  game.player.totalCards += unitsData.amount;
+                if (unit.key) {
+                  game.player.picks.push(unit.key);
+                  game.player.totalCards += unit.amount;
                 }
               });
-              data.opponent.units.forEach(function (unitsData) {
+              data.opponent.units.forEach(function (unit) {
                 //console.log(unitsData)
-                if (unitsData.unit) {
-                  game.enemy.picks.push(unitsData.unit);
-                  game.enemy.totalCards += unitsData.amount;
+                if (unit.key) {
+                  game.enemy.picks.push(unit.key);
+                  game.enemy.totalCards += unit.amount;
                 }
               });
 
