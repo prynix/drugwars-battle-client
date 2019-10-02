@@ -116,7 +116,10 @@ game.states.loading = {
     window.addEventListener("message", receiveMessage, false);
     function receiveMessage(event)
     {
-      console.log(event);
+      console.log('event',event);
+      console.log(event.source.postMessage("hi there yourself!  the secret response " +
+      "is: rheeeeet!",
+      event.origin));
       if (event.origin !== "http://example.com:8080")
         return;
       event.source.postMessage("hi there yourself!  the secret response " +
