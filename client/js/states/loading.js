@@ -125,7 +125,7 @@ game.states.loading = {
           url: u,
           complete: function (response) { //console.log(name, response, game.states.loading.updating)*/
             var data = JSON.parse(response.responseText);
-            console.log(data);
+            //console.log(data);
             if (!data.error) {
               game.player.name = data.me.information.nickname;
               game.player.picture = data.me.information.picture;
@@ -149,14 +149,14 @@ game.states.loading = {
                 //console.log(unitsData)
                 if (unit.key) {
                   game.player.picks.push(unit.key);
-                  game.player.totalCards += unit.amount;
+                  game.player.totalCards += data.me.units.length;
                 }
               });
               data.opponent.units.forEach(function (unit) {
                 //console.log(unitsData)
                 if (unit.key) {
                   game.enemy.picks.push(unit.key);
-                  game.enemy.totalCards += unit.amount;
+                  game.enemy.totalCards += data.opponent.units.length;
                 }
               });
 
