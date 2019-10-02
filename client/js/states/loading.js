@@ -116,7 +116,7 @@ game.states.loading = {
     window.addEventListener('message', messageListener, false);
 
     function messageListener(event) {
-        console.log(event.data);
+        console.log('event',event.data);
     }
 
     window.opener.postMessage('ready','*');
