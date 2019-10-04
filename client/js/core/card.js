@@ -175,7 +175,7 @@ game.card = {
     $.each(data, function(item, value) {    
       if (value.constructor.name == 'Array' || value.constructor.name == 'Object') 
         value = JSON.stringify(value); 
-      console.log(item, value )
+      //console.log(item, value );
       card.data(item, value);
     });
     card.append(legend).append(fieldset);
