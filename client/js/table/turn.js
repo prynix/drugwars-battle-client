@@ -32,8 +32,11 @@ game.turn = {
   },
   play: function (side, cb) {
     game.currentTurnSide = side;
-    $('.map .fountain.enemyarea .card.enemy').heal(game.fountainHeal);
-    $('.map .fountain.playerarea .card.player').heal(game.fountainHeal);
+    // $('.map .fountain.enemyarea .card.enemy').heal(game.fountainHeal);
+    // $('.map .fountain.playerarea .card.player').heal(game.fountainHeal);
+
+    $('.map .fountain .card.enemy').heal(game.fountainHeal);
+    $('.map .fountain .card.player').heal(game.fountainHeal);
     $('.map .jungle .card').each(game.turn.jungle);
     $('.table .card').each(function () {
       game.turn.triggerStart(this, side);

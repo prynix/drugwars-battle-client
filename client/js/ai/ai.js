@@ -583,7 +583,8 @@ game.ai = {
   },
   summon: function (card) {
     var creep = card.data('label');
-    var area = $('.spot.free.'+game.ai.side+'area');
+    //var area = $('.spot.free.'+game.ai.side+'area');
+    var area = $('.spot.free');
     var spots = [];
     area.each(function () {
       var spot =  $(this);

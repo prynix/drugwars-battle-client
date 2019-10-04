@@ -48,8 +48,8 @@ game.highlight = {
       if (card.hasClass('towers')) {
         card.strokeAttack();
       }
-      if (card.hasClass('units') && card.parent().is('.sidehand')) {
-        game[card.side()].tower.strokeAttack();
+      if (card.hasClass('units') && card.parent().is('.hand')) {
+        //game[card.side()].tower.strokeAttack();
         if (card.canPlay()) {
           card.addClass('draggable');
           card.highlightCreep();
@@ -493,8 +493,8 @@ game.highlight = {
   },
   highlightCreep: function() {
     var side = game.selectedCard.side();
-    game[side].tower.strokeAttack();
-    $('.spot.' + side + 'area.free').addClass('movearea').on('mouseup.highlight', game[side].summonCreep);
+    //game[side].tower.strokeAttack();
+    $('.spot.free').addClass('movearea').on('mouseup.highlight', game[side].summonCreep);
   },
   radialStroke: function(r, cl) {
     var spot = this
