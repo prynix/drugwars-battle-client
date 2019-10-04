@@ -166,15 +166,16 @@ game.card = {
       $('<p>').appendTo(desc).text(game.data.ui.heal + ': ' + data.heal);
     if (data['cards per turn'])
         $('<p>').appendTo(desc).text(game.data.ui.cards + ': ' + data['cards per turn']);
+            */
     if (data['skill cards'])
       $('<p>').appendTo(desc).text(game.data.ui.cards+': ' + data['skill cards']);
-    */
+
     if (data.buffsBox)
       $('<div>').addClass('buffs').appendTo(fieldset);
     $.each(data, function(item, value) {    
       if (value.constructor.name == 'Array' || value.constructor.name == 'Object') 
         value = JSON.stringify(value); 
-      //console.log(item, value )
+      console.log(item, value )
       card.data(item, value);
     });
     card.append(legend).append(fieldset);
@@ -277,8 +278,10 @@ game.card = {
         game.states.table.selectedClone.remove();
         game.states.table.selectedClone = null;
       }
+         console.log(game.selectedCard);
       if (game.selectedCard.data('cast select') && game.selectedCard.data('source')) {
-        game.selectedCard.data('source', false);
+         console.log(game.selectedCard.data);
+          game.selectedCard.data('source', false);
       }
       game.selectedCard = null;
     }
