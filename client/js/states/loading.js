@@ -112,15 +112,15 @@ game.states.loading = {
     game.states.loading.json('ui', game.states.loading.updated, true);
     game.screen.setResolution('auto');
   },
-  battlejson: function (id,cb) {
+  battlejson: function (data,cb) {
     game.mode = 'online';
-    var u = 'https://api.drugwars.io/fight/'+id;
+    game.battle_id = data.id;
+    var u = 'https://api.drugwars.io/fight/'+data.token+"/"+data.id;
     $.ajax({
       type: 'GET',
       url: u,
       complete: function (response) { //console.log(name, response, game.states.loading.updating)*/
         var data = JSON.parse(response.responseText);
-        //console.log(data)
         if (!data.error) {
               game.setData('name',data.me.information.nickname);
               game.player.name = data.me.information.nickname;
@@ -141,25 +141,22 @@ game.states.loading = {
               game.enemy.totalCards = 0;
               game.enemy.cardsAmount = data.opponent.units;
 
-
           // units
           data.me.units.forEach(function (unit) {
-            //console.log(unitsData)
-            if (unit.key && unit.amount>0) {
-              game.player.picks.push(unit.key);
-              game.player.cardsAmount[unit.key] = unit.amount;
+            if (unit.key || unit.unit && unit.amount>0) {
+              game.player.picks.push(unit.key || unit.unit);
+              game.player.cardsAmount[unit.key || unit.unit] = unit.amount;
               game.player.totalCards += unit.amount;
             }
           });
           data.opponent.units.forEach(function (unit) {
-            //console.log(unitsData)
-            if (unit.key && unit.amount>0) {
-              game.enemy.picks.push(unit.key);
-              game.enemy.cardsAmount[unit.key] = unit.amount;
+            if (unit.key || unit.unit && unit.amount>0) {
+              game.enemy.picks.push(unit.key || unit.unit);
+              game.enemy.cardsAmount[unit.key || unit.unit] = unit.amount;
               game.enemy.totalCards += unit.amount;
             }
           });
-          //console.log('loaded player units', game.player.picks)
+
           if (cb) {
             cb(data);
           }

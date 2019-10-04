@@ -59,10 +59,12 @@ game.history = {
       if ('AudioContext' in window) game.audio.build();
       //game.states.changeTo(state, recover);
       //game.setMode('online');
-      // game.online.check('first');
-      // game.online.start();
-      // game.states.changeTo('choose');
-      game.states.changeTo('vs'/*state*/, recover);
+      console.log(game);
+      game.states.config.size('s1v1');
+      game.online.check('first');
+      game.online.start();
+      game.states.changeTo('choose');
+      //game.states.changeTo('vs'/*state*/, recover);
     } else game.states.changeTo('vs');
   },
   match: function(mode, recovering) {

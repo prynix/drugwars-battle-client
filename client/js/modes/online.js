@@ -13,8 +13,8 @@ game.online = {
   start: function () {
     game.online.started = true;
     game.currentData = {};
-    game.newId();
-    game.setData('id', game.id);
+    game.newId(game.battle_id);
+    game.setData('id', game.battle_id);
     game.loader.addClass('loading');
     game.message.text(game.data.ui.loading);
     game.tries = 0;
@@ -22,17 +22,21 @@ game.online = {
   },
   check: function (first) {
     if (game.online.builded && !game.online.started) {
+      console.log(game.id);
+
       game.db({
         'get': 'waiting'
-      }, function (check) {  //console.log('check',check)
+      }, function (check) {  console.log('check',check);
         game.triesCounter.text(game.tries += 1);
         if (check && check.id && check.id !== 'none' && check.id !== game.id) {
           game.online.found(check);
-          game.states.changeTo('choose');
+          //game.states.changeTo('choose');
+          game.states.changeTo('vs');
         }
         else {
           if (first) {
-            game.states.changeTo('config');
+            //game.states.changeTo('config');
+            game.states.changeTo('choose');
             game.online.enableConfig();
           }
           if (game.online.builded && !game.online.started) setTimeout(game.online.check, 1000);
@@ -57,10 +61,10 @@ game.online = {
     game.db({
       'set': 'waiting',
       'data': game.id,
-    }, function (waiting) { //console.log('ask:', waiting);
+    }, function (waiting) {
       game.triesCounter.text(game.tries += 1);
       if (waiting && waiting.id) {
-        if (waiting.id == 'none' || waiting.id == game.id) game.online.wait();
+        if (waiting.id == 'none' || waiting.id !== game.id) game.online.wait();
         else game.online.found(waiting);
       } else {
         setTimeout(game.online.ask, 1000);
@@ -84,7 +88,7 @@ game.online = {
     });
   },
   searching: function () { //console.log('searching')
-    game.states.choose.back.attr({disabled: false});
+    //game.states.choose.back.attr({disabled: false});
     if (game.id && game.online.waiting) {
       game.db({ 'get': game.id }, function (found) {
         if (found.challenger) {
@@ -105,7 +109,7 @@ game.online = {
     game.online.battle('challenger', enemyName);
   },
   found: function (waiting) { //console.log('found',waiting.id)
-    game.states.choose.back.attr({disabled: true});
+    //game.states.choose.back.attr({disabled: true});
     game.message.text(game.data.ui.gamefound);
     game.setId(waiting.id);
     game.player.type = 'challenger';
@@ -134,7 +138,7 @@ game.online = {
     game.enemy.type = type;
     game.setData(type, name);
     game.message.html(game.data.ui.battlefound + ' <b>' + game.player.name + '</b> vs <b class="enemy">' + game.enemy.name + '</b>');
-    game.states.choose.counter.show();
+    //game.states.choose.counter.show();
     game.audio.play('battle');
     setTimeout(game.online.enablePick, 400);
   },
@@ -144,10 +148,13 @@ game.online = {
     game.states.choose.pickedbox.hide();
   },
   enablePick: function () {
-    game.states.choose.randombt.show().attr({disabled: false});
-    game.states.choose.mydeck.show();
-    if (game.getData('mydeck')) game.states.choose.mydeck.attr({disabled: false});
-    game.states.choose.enablePick();
+    //game.states.choose.randombt.show().attr({disabled: false});
+    //game.states.choose.mydeck.show();
+    //if (game.getData('mydeck')) game.states.choose.mydeck.attr({disabled: false});
+    //game.states.choose.enablePick();
+    var state = game.history.state;
+    var recover = game.history.recover;
+    game.states.changeTo('vs'/*state*/, recover);
     game.states.choose.count = game.timeToPick;
     setTimeout(game.online.pickCount, 1000);
   },

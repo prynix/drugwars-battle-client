@@ -1,6 +1,6 @@
 var game = {
   staticHost: 'https://api.drugwars.io/',
-  dynamicHost:  'https://battle.drugwars.io/', //'http://localhost:5000/'
+  dynamicHost:  'https://battle.drugwars.io/', 
   container: $('.game-container'),
   loader: $('<span>').addClass('loader'),
   message: $('<span>').addClass('message'),
@@ -59,9 +59,10 @@ var game = {
     } else
       game.states.changeTo('unsupported');
   },
-  newId: function() {
+  newId: function(id) {
     game.newSeed();
-    game.id = btoa(game.seed) + '|' + btoa(new Date().valueOf());
+    game.id = id;
+    //game.id = btoa(game.seed) + '|' + btoa(new Date().valueOf());
   },
   setId: function(id) {
     game.id = id;
