@@ -218,7 +218,7 @@ game.enemy = {
   summonUnitMove: function(to, unit) {
     var target = $('#' + to);
     console.log(game[game.currentTurnSide||'enemy']);
-    var unitCard = game[game.currentTurnSide||'enemy'].skills.hand.children('.units-' + unit).first();
+    var unitCard = game[game.currentTurnSide||'enemy'].skills.hand.children('.unit-' + unit).first();
     if (target.hasClass('free') && unitCard.length) {
       game.audio.play('activate');
       unitCard.addClass('showMoves');

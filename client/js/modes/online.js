@@ -316,6 +316,7 @@ game.online = {
       if (game.enemy.turn === game.ultTurn) {
         $('.card', game.enemy.skills.ult).appendTo(game.enemy.skills.deck);
       }
+      game.units.buyCreeps('enemy');
       //game.skill.buyHand('enemy');
       //game.tower.attack('player');
       //game.items.addMoney('enemy', game.turnReward); 

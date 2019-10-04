@@ -592,8 +592,8 @@ game.card = {
     target.setCurrentHp(0);
     target.stopChanneling();
     if (target.data('bounty') && target.side() != source.side() && !target.data('wk-ult')) {
-      game.items.addMoney(source.side(), target.data('bounty'));
-      game.fx.text(spot, 'gold', '$'+target.data('bounty'), 2000);
+      //game.items.addMoney(source.side(), target.data('bounty'));
+      //game.fx.text(spot, 'gold', '$'+target.data('bounty'), 2000);
     }
     if (target.side() == source.side()) {
       game.fx.text(spot, 'deny', '!', 2000);
