@@ -33,7 +33,7 @@ var game = {
   timeoutArray: [],
   skills: {},
   data: {},//json {heroes, skills, ui, units, campaign}
-  mode: '', //online, tutorial, single, library
+  mode: 'online', //online, tutorial, single, library
   currentData: {}, // all game info and moves. should be able to recreate a table
   currentState: 'noscript', //unsupported, loading, log, menu, campaign, choose, vs, table, results
   heroesAI: {}, // heroes default AI behaviour

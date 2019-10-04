@@ -83,18 +83,10 @@ game.states.loading = {
     var host = 'https://api.drugwars.io/';
     var u = host + name;
     //if (translate) u = game.dynamicHost + 'json/' + game.language.dir + name + '.json';
-    $.ajax({
-      type: 'GET',
-      url: u,
-      complete: function (response) { //console.log(name, response, game.states.loading.updating)
-        var data = JSON.parse(response.responseText);
-        game.data[name] = game.states.loading.parseDw(data);
+    var data = drugwars.units;
+    game.data[name] = game.states.loading.parseDw(data);
         //console.log('loaded '+name+' data', game.data[name])
-        if (cb) {
-          cb(game.data[name]);
-        }
-      }
-    });
+    cb(game.data[name]);
   },
   parseDw: function (data) {
     var parsed = {};
@@ -118,7 +110,7 @@ game.states.loading = {
   messageListener: function(event){
     game.states.loading.battlejson(event.data,game.states.loading.updated);
     game.states.loading.json('ui', game.states.loading.updated, true);
-
+    game.screen.setResolution('auto');
   },
   battlejson: function (id,cb) {
     game.mode = 'online';
@@ -130,7 +122,8 @@ game.states.loading = {
         var data = JSON.parse(response.responseText);
         //console.log(data)
         if (!data.error) {
-          game.player.name = data.me.information.nickname;
+              game.setData('name',data.me.information.nickname);
+              game.player.name = data.me.information.nickname;
               game.player.picture = data.me.information.picture;
               game.player.gang = data.me.information.gang;
               game.player.ticker = data.me.information.ticker;
