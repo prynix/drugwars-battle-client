@@ -59,7 +59,7 @@ game.history = {
       if ('AudioContext' in window) game.audio.build();
       //game.states.changeTo(state, recover);
       //game.setMode('online');
-      console.log(game);
+      //console.log(game);
       game.states.config.size('s1v1');
       game.online.check('first');
       game.online.start();

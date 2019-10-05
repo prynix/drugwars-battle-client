@@ -999,7 +999,7 @@
 }
 
 .map .fx.spawn-unit {
-  transform: rotateX(-20deg) translate3d(50px,10px,80px) scale(5.5);
+  transform: rotateX(-20deg) translate3d(50px,50px,80px) scale(5.5);
   width: 112px;
   height: 112px;
   animation: sprite-spawn-unit 1.1s steps(12) 1;

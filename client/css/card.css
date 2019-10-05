@@ -121,6 +121,7 @@
 
 .card .current p {
   /* font-weight: bold; */
+  text-shadow: 0px 0px 5px black;
 }
 
 .card .current p b {
@@ -140,17 +141,21 @@
   text-align: center;
   line-height: 12px;
   display: block;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .card .current .hp span {
-  /* background: #beeb71; */
 }
 
-.card .current .damage span, .card .desc .dot span {
-  /* background: #ed8c8c; */
-  color: white;
-  /* font-weight: normal; */
+.map .card .current .damage span {
+
+background: #e80000;
+
+color: white;
+
+border-radius: 2px;
+
+padding: 1px 0px;
 }
 
 .card .desc {
@@ -207,7 +212,7 @@
 
 .card.player {
   background-color: #404040;
-  background-image: url(../img/bkg/card-player.png);
+  background-image: url(//img.drugwars.io/cards/bkg/card-player.png);
   background-size: 100% 100%;
 }/*
 .card.player.towers, .card.player.towers .portrait {
@@ -219,7 +224,7 @@
 }*/
 
 .card.enemy, .card.enemy .portrait {
-  background-image: url(../img/bkg/card-enemy.png);
+  background-image: url(//img.drugwars.io/cards/bkg/card-ennemy.png);
   /* background-color: #c55f5f; */
 }
 
@@ -678,13 +683,25 @@
   transform: translate3d(-50%, -50%, 40px) rotateX(-14deg);
 }
 
-.map .card.enemy .current .hp span {
-  background: #ed8c8c;
+.map .card.enemy .current .damage span {
+  background: #e80000;
   color: white;
+  border-radius: 2px;
+  padding: 2px;
+}
+
+.map .card.enemy .current .hp span {
+  background: #00c000;
+  color: white;
+  border-radius: 2px;
+  padding: 2px;
 }
 
 .map .card .current .hp span {
-  /* font-size: 14px; */
+    background: #0053c0;
+    color: white;
+    border-radius: 2px;
+    padding: 1px 2px;
 }
 .map .card.towers .current .hp span {
   width: 19px;
@@ -779,27 +796,45 @@
 }
 
 .map .card fieldset, .card.dragTargetClone.fromMap fieldset {
-  padding: 0;
-  margin: 18px 5px;
+  /* padding-top: 88px; */
+  /* margin: 18px 5px; */
 }
 
 .map .card .portrait .img, .map .card .portrait .overlay, .card.dragTargetClone.fromMap .portrait .img, .card.dragTargetClone.fromMap .portrait .overlay {
-  height: 265px;
+  height: 100%;
 }
 
 .map .card .current, .card.dragTargetClone.fromMap .current {
-  top: 22px;
+  /* top: 22px; */
   right: 18px;
 }
 
-.map .card .current .damage, .card.dragTargetClone.fromMap .current .damage {
-  display: none;
+.map .card .current .damage b, .card.dragTargetClone.fromMap .current .damage b {
+    display: none;
+    /* background: #ed8c8c; */
+    color: white;
+    /* font-weight: normal; */
+}
+
+.map .card .current .damage, .card.dragTargetClone.fromMap .current .damage span {
+
+/* background: #ed8c8c; */
+
+color: white;
+
+/* font-weight: normal; */
+
+transform: translate(-18px, -6px) scale(5);
+
+padding-right: 1px;
+
+width: 23px;
 }
 
 .map .card .current .hp span, .card.dragTargetClone.fromMap .current .hp span {
-  transform: translate(-10px, -4px) scale(6.4);
+  transform: translate(-6px, 40px) scale(4);
   padding-right: 1px;
-  width: 21px;
+  width: 19px;
 }
 
 /*TOWERS*/
