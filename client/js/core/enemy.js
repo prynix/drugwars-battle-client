@@ -223,7 +223,7 @@ game.enemy = {
       game.audio.play('activate');
       unitCard.addClass('showMoves');
       game.timeout(game.enemy.moveAnimation, function() {
-        game.fx.add('ld-return-target', target);
+        game.fx.add('spawn-unit', target);
         unitCard.removeClass('showMoves flipped').place(target);
         unitCard.trigger('summon');
       });

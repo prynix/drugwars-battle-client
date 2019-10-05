@@ -1,5 +1,6 @@
 .card > * {
   pointer-events: none;
+  /* text-align: right; */
 }
 
 .deck .card {

@@ -48,6 +48,7 @@ h1, h2, input[type="text"], .button, .menu .icon span, .rank span, .rank li:befo
 
 h1, h2, input[type="text"], .button, .menu .icon span, .rank span, .rank li:before, .card .damaged, .card .heal, .card .missed, .game-overlay .version, .baloon, .card .current {
   font-family: "American Captain", Impact, sans-serif;
+  text-align: center;
 }
 
 noscript, .card .title {
