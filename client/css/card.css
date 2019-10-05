@@ -251,8 +251,12 @@ padding: 1px 0px;
 .table .card.selected {
   box-shadow: 0 0 0 3px white;
 }
-.table .map .card.selected {
-  box-shadow: 0 0 0 8px white;
+.table .map .card.selected.player {
+  box-shadow: 0 0 0 8px #4db2dc;
+}
+
+.table .map .card.selected.enemy {
+  box-shadow: 0 0 0 8px red;
 }
 
 .card.left-hand.skills, .card.left-hand.skills .portrait {
