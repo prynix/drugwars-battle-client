@@ -103,6 +103,7 @@ game.states.loading = {
       parsed[npc][i].hp = data[i].health;
       parsed[npc][i].damage = data[i].attack;
       parsed[npc][i].description = data[i].desc;
+      parsed[npc][i].speed = data[i].walk_speed;
       //parsed[npc][i].id =  npc + '-' + name;
     }
     return parsed;
