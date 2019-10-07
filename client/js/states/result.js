@@ -34,7 +34,7 @@ game.states.result = {
   },
   update: function () {
     this.clear();
-    game.rank.send();
+    //game.rank.send();
     game.audio.stopSong();
     game.audio.loopSong('SneakyAdventure');
     if (game.mode == 'tutorial') game.tutorial.axe.addClass('show').appendTo(this.el);
