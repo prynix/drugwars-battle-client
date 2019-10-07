@@ -74,7 +74,7 @@ game.online = {
   wait: function () {// console.log('wait')
     game.loader.addClass('loading');
     game.setData('size', game.size);
-    game.setData('id', game.id);
+    game.setData('id', game.battle_id);
     game.player.type = 'challenged';
     game.setData('challenged', game.player.name);
     game.db({
@@ -91,7 +91,7 @@ game.online = {
     //game.states.choose.back.attr({disabled: false});
     if (game.battle_id && game.online.waiting) {
       game.db({ 'get': game.id }, function (found) {
-        console.log(game.enemy.name,found.challenger);
+        console.log(game.player.name,game.enemy.name,found.challenger);
         if (found.challenger === game.enemy.name && found.id === game.battle_id) {
           console.log('found battle against',found.challenger);
 
