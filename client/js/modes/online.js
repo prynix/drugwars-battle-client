@@ -28,7 +28,7 @@ game.online = {
         'get': 'waiting'
       }, function (check) {  console.log('check',check);
         game.triesCounter.text(game.tries += 1);
-        if (check && check.id && check.id !== 'none' && check.id !== game.id) {
+        if (check && check.id && check.id !== game.id) {
           game.online.found(check);
           //game.states.changeTo('choose');
           game.states.changeTo('vs');
@@ -89,9 +89,12 @@ game.online = {
   },
   searching: function () { //console.log('searching')
     //game.states.choose.back.attr({disabled: false});
-    if (game.id && game.online.waiting) {
+    if (game.battle_id && game.online.waiting) {
       game.db({ 'get': game.id }, function (found) {
-        if (found.challenger) {
+        console.log(game.enemy.name,found.challenger);
+        if (found.challenger === game.enemy.name && found.id === game.battle_id) {
+          console.log('found battle against',found.challenger);
+
           game.online.waiting = false;
           game.online.challengerFound(found.challenger);
         } else {

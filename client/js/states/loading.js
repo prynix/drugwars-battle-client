@@ -8,8 +8,19 @@ game.states.loading = {
     this.el = $('.state.loading').removeClass('hidden');
     this.h2 = $('.state.loading .loadtext');
     this.box = $('.state.loading .box');
-    window.addEventListener('message', game.states.loading.messageListener, false);
-    window.opener.postMessage('ready','*');
+    if(window.opener != null){
+      window.addEventListener('message', game.states.loading.messageListener, false);
+      window.opener.postMessage('ready','*');
+    }
+    else
+    {
+    var details = "You must first start a battle in DrugWars.";
+    game.overlay.error(details, function () {
+      game.clear();
+      game.setData('state', 'menu');
+      location.reload(false);
+    });
+    }
   },
   start: function () {
     if (game.debug) game.states.loading.ping();
