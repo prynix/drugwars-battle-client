@@ -91,8 +91,6 @@ game.states.loading = {
     });
   },
   dwjson: function (name, cb, translate) {
-    var host = 'https://api.drugwars.io/';
-    var u = host + name;
     //if (translate) u = game.dynamicHost + 'json/' + game.language.dir + name + '.json';
     var data = drugwars.units;
     game.data[name] = game.states.loading.parseDw(data);
@@ -134,6 +132,8 @@ game.states.loading = {
       complete: function (response) { //console.log(name, response, game.states.loading.updating)*/
         var data = JSON.parse(response.responseText);
         if (!data.error) {
+              //console.log(data);
+
               game.setData('name',data.me.information.nickname);
               game.player.name = data.me.information.nickname;
               game.player.picture = data.me.information.picture;

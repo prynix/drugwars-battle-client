@@ -63,6 +63,15 @@ game.card = {
       $('<p>').addClass('damage').appendTo(current).html('<b>ATTACK</b><span>' + data.damage + '</span>');
       data['current damage'] = data.damage;
     }
+    // if(card.hasClass("player") && game.player.cardsAmount[data.id] && game.player.cardsAmount[data.id] >0)
+    // {
+    //   data.hp = data.health * game.player.cardsAmount[data.id];
+    // }
+    // else if(card.hasClass("enemy") && game.enemy.cardsAmount[data.id] && game.enemy.cardsAmount[data.id] >0)
+    // {
+    //   console.log(game.enemy.cardsAmount[data.id])
+    //   data.hp = data.health * game.enemy.cardsAmount[data.id];
+    // }
     if (data.hp) {
       $('<p>').addClass('hp').appendTo(current).html('<b>HEALTH</b><span>' + data.hp + '</span>');
       data['current hp'] = data.hp;
@@ -178,6 +187,7 @@ game.card = {
       //console.log(item, value );
       card.data(item, value);
     });
+
     card.append(legend).append(fieldset);
     return card;
   },
@@ -278,7 +288,6 @@ game.card = {
         game.states.table.selectedClone.remove();
         game.states.table.selectedClone = null;
       }
-         console.log(game.selectedCard);
       if (game.selectedCard.data('cast select') && game.selectedCard.data('source')) {
          console.log(game.selectedCard.data);
           game.selectedCard.data('source', false);

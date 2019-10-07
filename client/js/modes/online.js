@@ -22,13 +22,14 @@ game.online = {
   },
   check: function (first) {
     if (game.online.builded && !game.online.started) {
-      console.log(game.id);
+      //console.log(game.id);
 
       game.db({
         'get': 'waiting'
       }, function (check) {  console.log('check',check);
         game.triesCounter.text(game.tries += 1);
         if (check && check.id && check.id !== game.id) {
+          //console.log(check);
           game.online.found(check);
           //game.states.changeTo('choose');
           game.states.changeTo('vs');
@@ -62,9 +63,10 @@ game.online = {
       'set': 'waiting',
       'data': game.id,
     }, function (waiting) {
+      //console.log(waiting)
       game.triesCounter.text(game.tries += 1);
       if (waiting && waiting.id) {
-        if (waiting.id == 'none' || waiting.id !== game.id) game.online.wait();
+        if (waiting.id == 'none' || waiting.id !== game.battle_id) game.online.wait();
         else game.online.found(waiting);
       } else {
         setTimeout(game.online.ask, 1000);
@@ -74,7 +76,7 @@ game.online = {
   wait: function () {// console.log('wait')
     game.loader.addClass('loading');
     game.setData('size', game.size);
-    game.setData('id', game.battle_id);
+    game.setData('id', game.id);
     game.player.type = 'challenged';
     game.setData('challenged', game.player.name);
     game.db({
@@ -91,10 +93,8 @@ game.online = {
     //game.states.choose.back.attr({disabled: false});
     if (game.battle_id && game.online.waiting) {
       game.db({ 'get': game.id }, function (found) {
-        console.log(game.player.name,game.enemy.name,found.challenger);
-        if (found.challenger === game.enemy.name && found.id === game.battle_id) {
-          console.log('found battle against',found.challenger);
-
+        //console.log(game.player.name,game.enemy.name,found.challenger,found.id);
+        if (found.challenger != undefined && found.challenger !== found.challenged && found.id === game.battle_id) {
           game.online.waiting = false;
           game.online.challengerFound(found.challenger);
         } else {
@@ -118,9 +118,10 @@ game.online = {
     game.player.type = 'challenger';
     game.setData('challenger', game.player.name);
     // ask challenged name
-    game.db({ 'get': waiting.id }, function (found) {//console.log('found:', found);
+    game.db({ 'get': waiting.id }, function (found) {
+      //console.log('found:', found);
       var enemyName = found.challenged;
-      if (enemyName) { // tell player name
+      if (enemyName === game.enemy.name || enemyName != game.player.name) { // tell player name
         game.db({
           'set': game.id,
           'data': game.currentData
