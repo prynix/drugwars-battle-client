@@ -67,50 +67,13 @@ module.exports = function(grunt) {
     'clean':  [
       'client/bundle/js',
       'client/bundle/css'
-    ],
-    'electron': {
-      winBuild: {
-        options: {
-          asar: true,
-          overwrite: true,
-          dir: 'client',
-          out: 'downloads/windows',
-          electronVersion: '3.0.10',
-          platform: 'win32',
-          arch: 'ia32'
-        }
-      },
-      macosBuild: {
-        options: {
-          asar: true,
-          overwrite: true,
-          dir: 'client',
-          out: 'downloads/mac',
-          electronVersion: '3.0.10',
-          platform: 'darwin',
-          arch: 'x64'
-        }
-      },
-      linuxBuild: {
-        options: {
-          asar: true,
-          overwrite: true,
-          dir: 'client',
-          out: 'downloads/linux',
-          electronVersion: '3.0.10',
-          platform: 'linux',
-          arch: 'ia32'
-        }
-      }
-    }
+    ]
   });
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-cssmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-electron');
-  // grunt.registerTask('default', ['jshint', 'cssmin', 'uglify', 'concat', 'clean', 'electron']);
   grunt.registerTask('default', ['jshint', 'cssmin', 'uglify', 'concat', 'clean']);
 
 };

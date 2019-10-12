@@ -1,6 +1,6 @@
 game.states.loading = {
   updating: 0,
-  totalUpdate: 6, // values + language + ui + units + package + db
+  totalUpdate: 4, // ui, dwunits, battlejson, build
   build: function () {
     //this.box = $('<div>').addClass('box');   
     //this.h2 = $('<p>').appendTo(this.box).addClass('loadtext').html('<span class="loader loading"></span><span class="message">Updating: </span><span class="progress">0%</span>');
@@ -8,26 +8,21 @@ game.states.loading = {
     this.el = $('.state.loading').removeClass('hidden');
     this.h2 = $('.state.loading .loadtext');
     this.box = $('.state.loading .box');
-    window.addEventListener('message', game.states.loading.messageListener, false);
-    window.opener.postMessage('ready','*');
   },
   start: function () {
-    if (game.debug) game.states.loading.ping();
-    game.states.loading.package();
-    game.language.load(function loadLanguage() { //console.log('lang', game.states.loading.updating)
+    // 
+    window.addEventListener('message', game.states.loading.messageListener, false);
+    if (!game.debug) window.opener.postMessage('ready','*');
+    else game.states.loading.messageListener();
+    // ===
+    game.states.loading.updated();
+    game.states.loading.json('ui', game.states.loading.updated);
+    game.states.loading.dwjson('units', function () {
+      game.states.loading.createUnitsStyle();
       game.states.loading.updated();
-      game.states.loading.json('values', game.states.loading.updated);
-      // trasnslate
-      game.states.loading.dwjson('units', function () {
-        game.states.loading.createUnitsStyle();
-        game.states.loading.updated();
-      });
-      // game.states.loading.json('ui', game.states.loading.updated, true);
-      // game.states.loading.battlejson(game.states.loading.updated);
     });
-    game.states.loading.progress();
   },
-  updated: function () { //console.trace(this)
+  updated: function () { //console.trace(game.states.loading)
     game.states.loading.updating += 1;
     game.states.loading.progress();
   },
@@ -116,13 +111,12 @@ game.states.loading = {
     return parsed;
   },
   messageListener: function(event){
-    game.states.loading.battlejson(event.data,game.states.loading.updated);
-    game.states.loading.json('ui', game.states.loading.updated, true);
-
+    game.states.loading.battlejson((event ? event.data : 0), game.states.loading.updated);
   },
   battlejson: function (id,cb) {
     game.mode = 'online';
     var u = 'https://api.drugwars.io/fight/'+id;
+    if (game.debug) u = '/json/player1.json';
     $.ajax({
       type: 'GET',
       url: u,
@@ -185,32 +179,5 @@ game.states.loading = {
     }
     style += '</style>';
     $(style).appendTo(document.head);
-  },
-  package: function () {
-    $.ajax({
-      type: 'GET',
-      url: game.dynamicHost + 'package.json',
-      complete: function (response) {
-        game.states.loading.updated();
-        var data = JSON.parse(response.responseText);
-        $.each(data, function (name) {
-          game[name] = this;
-        });
-      }
-    });
-  },
-  ping: function (cb) {
-    var start = new Date();
-    $.ajax({
-      type: 'GET',
-      url: game.dynamicHost,
-      complete: function (response) {
-        game.ping = new Date() - start;
-        if (response.readyState === 4 && location.host.search('localhost') < 0) {
-          game.offline = false;
-        } else { game.offline = true; }
-        if (cb) { cb(); }
-      }
-    });
   }
 };

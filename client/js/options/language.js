@@ -1,7 +1,7 @@
 game.language = {
   current: 'en-US',
-  available: ['en-US', 'pt-BR', 'es', 'tr-TR', 'ru'],
-  names: ['English US', 'Português BR', 'Español ES', 'Türk TR', 'Pусский RU'],
+  available: ['en-US'/*, 'pt-BR', 'es', 'tr-TR', 'ru'*/],
+  names: ['English US'/*, 'Português BR', 'Español ES', 'Türk TR', 'Pусский RU'*/],
   dir: '',
   load: function (cb) {
     var lang = game.getData('lang');

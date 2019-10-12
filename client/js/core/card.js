@@ -60,15 +60,15 @@ game.card = {
     current = $('<div>').addClass('current').appendTo(fieldset);
     $('<p>').addClass('amount').appendTo(current).text('X');
     if (data.damage) {
-      $('<p>').addClass('damage').appendTo(current).html('<b>ATTACK</b><span>' + data.damage + '</span>');
+      $('<div>').addClass('damage').appendTo(current).html('<h4>ATTACK</h4><p>' + data.damage + '</p>');
       data['current damage'] = data.damage;
     }
     if (data.hp) {
-      $('<p>').addClass('hp').appendTo(current).html('<b>HEALTH</b><span>' + data.hp + '</span>');
+      $('<div>').addClass('hp').appendTo(current).html('<h4>HEALTH</h4><p>' + data.hp + '</p>');
       data['current hp'] = data.hp;
     }   
     if (data.speed) {
-      $('<p>').addClass('speed').appendTo(current).html('<b>SPEED</b><span>' + data.speed + '</span>');
+      $('<div>').addClass('speed').appendTo(current).html('<h4>SPEED</h4><p>' + data.speed + '</p>');
       if (typeof(data.speed) == 'number') {
         data.speedInt = data.speed;
         data.speed = game.map.getRangeStr(data.speed);
@@ -76,7 +76,7 @@ game.card = {
       data['current speed'] = data.speed;
     }
     if (data.capacity) {
-      $('<p>').addClass('capacity').appendTo(current).html('<b>CARRY</b><span>' + data.capacity + '</span>');
+      $('<div>').addClass('capacity').appendTo(current).html('<h4>CARRY</h4><p>' + data.capacity + '</p>');
       data['current capacity'] = data.capacity;
     }
     desc = $('<div>').addClass('desc').appendTo(fieldset);
@@ -85,53 +85,7 @@ game.card = {
       $('<p>').appendTo(desc).addClass('feature').text(data.feature);
       //card.attr({ title: data.name + ': ' + data.description });
     }
-    /*
-    if (data.dot) {
-      $('<p>').appendTo(desc).text(game.data.ui.dot + ': ').addClass('dot').append($('<span>').text(data.dot));
-      opt.dot = true;
-    }
-    //if (data.hand)
-    //  $('<p>').appendTo(desc).text(data.deck + ' (' + data.hand + ')');
-    if (data.price)
-      $('<p>').appendTo(desc).text(game.data.ui.price + ': $' + data.price).addClass('price');
-    if (data.cards > 1)
-      $('<p>').appendTo(desc).text(game.data.ui.cards + ': ' + data.cards);
-    if (data['damage type'])
-      $('<p>').appendTo(desc).text(game.data.ui.damage + ': ' + data['damage type']);
-    else if (data.buff && data.buff['damage type'])
-      $('<p>').appendTo(desc).text(game.data.ui.damage + ': ' + data.buff['damage type']);
-    if (data['cast range'] && (!data.aoe || data.aoe != game.data.ui.linear)) {
-      if (game.language.current == 'ru') $('<p>').appendTo(desc).text(game.data.ui['cast range'] + ': ' + data['cast range']).addClass('castRange');
-      else if (data['cast range'] == 999) $('<p>').appendTo(desc).text(game.data.ui['cast range'] + ': ' + game.map.getRangeStr(data['cast range'])).addClass('castRange');
-      else $('<p>').appendTo(desc).text(game.data.ui['cast range'] + ': ' + game.map.getRangeStr(data['cast range']) +' ('+ data['cast range'] + ')').addClass('castRange');
-    }
-    if (data.aoe) {
-      if (typeof(data['aoe width']) == 'number') $('<p>').appendTo(desc).text(game.data.ui.aoe + ': ' + data.aoe + ' (' + data['aoe range']+'/' + ((data['aoe width']*2)+1) + ')');
-      else $('<p>').appendTo(desc).text(game.data.ui.aoe + ': ' + data.aoe + ' (' + game.map.getRangeStr(data['aoe range']) +')');
-    }
-    if (data.range) {
-      $('<p>').appendTo(desc).text(game.data.ui.range + ': ' + game.map.getRangeStr(data.range)).addClass('range');
-    }
-    if (data.armor) {
-      $('<p>').appendTo(desc).text(game.data.ui.armor + ': ' + data.armor).addClass('armor');
-      data['current armor'] = data.armor;
-    }
-    if (data.resistance) {
-      $('<p>').appendTo(desc).text(game.data.ui.resistance + ': ' + data.resistance).addClass('resistance');
-      data['current resistance'] = data.resistance;
-    }
-    if (data.mana > 1)
-      $('<p>').appendTo(desc).text(game.data.ui.mana + ': ' + data.mana).addClass('mana');
-    if (data['bonus cards']) 
-      $('<p>').appendTo(desc).text(game.data.ui.bonus + ' ' + game.data.ui.cards + ': ' + data['bonus cards']);
-    if (data.type == game.data.ui.channel && data.channel && data.channel > 1) {
-      $('<p>').appendTo(desc).text(game.data.ui.channel+' '+game.data.ui.duration + ': ' + data.channel + ' '+ game.data.ui.turns);
-      opt.duration = true;
-    }
-    if (data.stun && data.stun > 1) 
-      $('<p>').appendTo(desc).text(game.data.ui.stun+' '+game.data.ui.duration + ': ' + data.stun + ' ' + game.data.ui.turns);
-    */
-    //console.log(data)
+
     $('<p>').appendTo(desc).text('DESCRIPTION').addClass('title');
     if (data.description) {
       $('<p>').appendTo(desc).addClass('description').text(data.description);

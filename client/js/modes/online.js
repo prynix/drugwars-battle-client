@@ -229,8 +229,8 @@ game.online = {
       game.message.text(game.data.ui.battle);
       game.audio.play('horn');
       //game.items.enableShop();
-      game.player.placeHeroes();
-      game.enemy.placeHeroes();
+      //game.player.placeHeroes();
+      //game.enemy.placeHeroes();
       game.turn.build(6);
       game.timeout(400, function () {
         game.skill.build('enemy');
@@ -284,7 +284,7 @@ game.online = {
     game.online.endPlayer();
   },
   endPlayer: function () {
-    game.turn.end('player', game.online.sendTurnData);
+    //game.turn.end('player', game.online.sendTurnData);
   },
   sendTurnData: function () {
     var challengeTurn = game.player.type + 'Turn';

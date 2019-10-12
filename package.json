@@ -28,10 +28,7 @@
     "strategy",
     "tactical"
   ],
-  "dependencies": {
-    "mongodb": "^2.2.36",
-    "serve-static": "^1.14.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "grunt": "^1.0.4",
     "grunt-contrib-clean": "~1.0",

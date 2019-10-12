@@ -1,6 +1,5 @@
 var game = {
-  staticHost: 'https://api.drugwars.io/',
-  dynamicHost: 'http://localhost:5000/',
+  dynamicHost: 'https://api.drugwars.io/',
   container: $('.game-container'),
   loader: $('<span>').addClass('loader'),
   message: $('<span>').addClass('message'),
@@ -35,7 +34,7 @@ var game = {
   data: {},//json {heroes, skills, ui, units, campaign}
   mode: '', //online, tutorial, single, library
   currentData: {}, // all game info and moves. should be able to recreate a table
-  currentState: 'noscript', //unsupported, loading, log, menu, campaign, choose, vs, table, results
+  currentState: 'noscript', //unsupported, loading, vs, table, results
   heroesAI: {}, // heroes default AI behaviour
   build: function() {
     game.utils();
@@ -50,8 +49,7 @@ var game = {
     if (window.JSON && window.localStorage && window.btoa && window.atob && window.XMLHttpRequest) {
       if (game.debug) {
         game.container.addClass('debug');
-        game.electron = (window.process && process.version && process.versions.electron);
-        if (!game.electron) game.dynamicHost = '';
+        game.dynamicHost = '';
       }
       game.build();
       game.screen.detectDark();
@@ -83,11 +81,11 @@ var game = {
   },
   setData: function(item, data) { //console.trace('set', item, data)
     game.currentData[item] = data;
-    localStorage.setItem('FODA-data-'+item, JSON.stringify(data));
+    localStorage.setItem('DW-data-'+item, JSON.stringify(data));
   },
   getData: function(item) {
     if (!game.currentData[item]) {
-      var saved = localStorage.getItem('FODA-data-'+item);
+      var saved = localStorage.getItem('DW-data-'+item);
       if (typeof(saved) !== undefined) game.currentData[item] = JSON.parse(saved);
     }
     return game.currentData[item];
@@ -167,9 +165,9 @@ var game = {
   reset: function(details) {
     game.overlay.confirm(details, function(confirmed) {
       if (confirmed) {
-        game.clear();
-        game.setData('state', 'menu');
-        location.reload(true);
+        //game.clear();
+        //game.setData('state', 'menu');
+        //location.reload(true);
       }
     });
   }
