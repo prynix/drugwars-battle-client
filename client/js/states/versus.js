@@ -46,27 +46,11 @@ game.states.vs = {
       //console.log('.unit-'+pick)
       var unit = game.units.clone(game.player.unitsDeck.children('.unit-'+pick));
       unit.appendTo(game.states.vs.playerdeck);
-      $('.amount', unit).text('X'+game.player.cardsAmount[pick]);
+      var xstr = 'X';
+      if (game.player.cardsAmount[pick] > 999) xstr = '';
+      $('.amount', unit).text(xstr+game.player.cardsAmount[pick]);
     });
     game.states.vs.playerinfo.text(game.player.totalCards);
-    /*game.deck.build({
-      name: 'units',
-      filter: game.player.picks,
-      cb: function (deck) { console.log(game.player.picks,deck)
-        deck.addClass('vsplayerdeck').appendTo(game.states.vs.playerdeck);
-        var ch = deck.children();
-        ch.sort(function (a,b) { 
-          return game.player.picks.indexOf($(a).data('hero')) - game.player.picks.indexOf($(b).data('hero')); 
-        });
-        deck.append(ch);
-      }
-    });*/
-    //game.skill.calcMana('player');
-    //if (game.mode != 'library') this.playerinfo.text(game.data.ui.cardsperturn+': '+game.player.cardsPerTurn);
-    //else {
-    //  game.player.cardsPerTurn = 10;
-    //  this.playerinfo.text(game.data.ui.mana + ': '+$('.vsplayerdeck .card').data('mana'));
-    //}
   },
   buildEnemy: function () {
     if (game.mode == 'tutorial') game.enemy.name = game.data.ui.tutorial;
@@ -80,24 +64,11 @@ game.states.vs = {
     game.enemy.picks.forEach(function (pick) {
       var unit = game.units.clone(game.enemy.unitsDeck.children('.unit-'+pick));
       unit.appendTo(game.states.vs.enemydeck);
-      $('.amount', unit).text('X'+game.enemy.cardsAmount[pick]);
+      var xstr = 'X';
+      if (game.enemy.cardsAmount[pick] > 999) xstr = '';
+      $('.amount', unit).text(xstr+game.enemy.cardsAmount[pick]);
     });
     game.states.vs.enemyinfo.text(game.enemy.totalCards);
-    /*game.deck.build({
-    /*game.deck.build({
-      name: 'units',
-      filter: game.enemy.picks,
-      cb: function (deck) {
-        deck.addClass('vsenemyrdeck').appendTo(game.states.vs.enemydeck);
-        var ch = deck.children();
-        ch.sort(function (a,b) { 
-          return game.enemy.picks.indexOf($(a).data('hero')) - game.enemy.picks.indexOf($(b).data('hero')); 
-        });
-        deck.append(ch);
-      }
-    });*/
-    //game.skill.calcMana('enemy');
-    //this.enemyinfo.text(game.data.ui.cardsperturn+': '+game.enemy.cardsPerTurn);
   },
   playerPicks: function () {
     var hero, picks;

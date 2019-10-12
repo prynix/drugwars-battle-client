@@ -6,7 +6,6 @@
   float: left;
 }
 
-
 .card {
   position: relative;
   display: inline-block;
@@ -113,26 +112,35 @@
 
 .card .current {
   position: absolute;
-  right: 8px;
-  letter-spacing: 0.4px;
-  top: 152px;
+  right: 7px;
+  top: 155px;
+  width: 26px;
 }
-
+.card .current h4, .card .current p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 12px;
+  text-align: center;
+}
 .card .current p {
-  /* font-weight: bold; */
+  font-size: 12px;
+  transform: scale(1, 1.25);
 }
 
-.card .current p b {
+.card .current h4 {
   font-size: 7px;
   line-height: 9px;
-  /* display: block; */
   color: #e9b008;
   display: block;
+  text-align: center;
+  margin: 0;
 }
 .card .current .amount {
-  margin: 0 0 8px 0;
-  font-size: 17px;
+  margin-bottom: 12px;
+  font-size: 11px;
   text-align: center;
+  transform: scale(1, 1.7);
 }
 
 .card .current span {
@@ -142,11 +150,7 @@
   font-size: 13px;
 }
 
-.card .current .hp span {
-  /* background: #beeb71; */
-}
-
-.card .current .damage span, .card .desc .dot span {
+.card .current > div {
   /* background: #ed8c8c; */
   color: white;
   /* font-weight: normal; */
@@ -206,7 +210,7 @@
 
 .card.player {
   background-color: #404040;
-  background-image: url(../img/bkg/card-player.png);
+  background-image: url(//img.drugwars.io/cards/bkg/player.gif);
   background-size: 100% 100%;
 }/*
 .card.player.towers, .card.player.towers .portrait {
@@ -218,7 +222,7 @@
 }*/
 
 .card.enemy, .card.enemy .portrait {
-  background-image: url(../img/bkg/card-enemy.png);
+  background-image: url(//img.drugwars.io/cards/bkg/enemy.gif);
   /* background-color: #c55f5f; */
 }
 
@@ -790,10 +794,6 @@
 .map .card .current, .card.dragTargetClone.fromMap .current {
   top: 22px;
   right: 18px;
-}
-
-.map .card .current .damage, .card.dragTargetClone.fromMap .current .damage {
-  display: none;
 }
 
 .map .card .current .hp span, .card.dragTargetClone.fromMap .current .hp span {

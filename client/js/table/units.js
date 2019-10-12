@@ -25,7 +25,9 @@ game.units = {
       var unit = game.units.clone(game[side].unitsDeck.children('.unit-'+pick));
       unit.appendTo(game[side].skills.hand);
       unit.on('mousedown touchstart', game.card.select);
-      $('.amount', unit).text('X'+game[side].cardsAmount[pick]);
+      var xstr = 'X';
+      if (game[side].cardsAmount[pick] > 999) xstr = '';
+      $('.amount', unit).text(xstr+game[side].cardsAmount[pick]);
       if (!(side == 'player' || game.mode == 'library' || game.mode == 'local')) {
         unit.addClass('flipped');
       }

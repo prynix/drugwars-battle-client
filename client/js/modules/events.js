@@ -169,9 +169,9 @@ game.events = {
     var err = event.originalEvent;
     var details = err.message +' '+ err.filename +' '+ err.lineno +':'+err.colno;
     game.overlay.error(details, function () {
-      game.clear();
-      game.setData('state', 'menu');
-      location.reload(true);
+      //game.clear();
+      //game.setData('state', 'menu');
+      //location.reload(true);
     });
   }
 };
