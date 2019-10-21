@@ -18,9 +18,8 @@
     <meta name="twitter:title" content="DrugWars"/>
     <meta name="twitter:card" content="summary_large_image"/>
     <meta name="twitter:description" content="Play now for free!"/>
-    <meta name="twitter:image" content="https://drugwars.io/img/logo.jpg"/>
-    <meta name="twitter:site" content="@drugwars.io"/>
-    <link href="favicon.ico" rel="icon" type="image/vnd.microsoft.icon"/>
+    <meta name="twitter:image" content="https://foda-app.herokuapp.com/client/img/banner.jpg"/>
+    <meta name="twitter:site" content="@racascou"/>
     <link href="favicon.png" rel="icon" type="image/png"/>
     <link href="bundle/game.min.css" rel="stylesheet"/>
     <link rel="manifest" href="manifest.json">
@@ -30,21 +29,18 @@
       <div class="states">
         <noscript class="state">
           <div class="box" style="padding: 10px; background: white;">
-            <h2>Drugwars requires <i>JavaScript</i></h2>
+            <h2>DrugWars BattleClient requires <i>JavaScript</i></h2>
             <p><a href="http://www.enable-javascript.com/" target="_blank">How can I turn on <i>JavaScript?</i></a></p>
           </div>
         </noscript>
         <div class="state loading hidden">
           <div class="box">
-            <p class="loadtext"><span class="loader loading"></span><span class="message">Updating: </span><span class="progress">0%</span></p>
+            <p class="loadtext"><span class="loader loading"></span><span class="message">Loading: </span><span class="progress">0%</span></p>
           </div>
         </div>
       </div>
     </div>
     <script src="bundle/game.min.js"></script>
-    <script src="bundle/drugwars.min.js"></script>
-    <script src="analytics/google.analytics.min.js"></script>
-    <script src="analytics/inspectlet.min.js" id="inspectletjs"></script>
     <script>
       console.log('Visit https://github.com/FutureShockco/drugwars-battle-client for the source code');
       $(game.start);

@@ -72,7 +72,7 @@ game.turn = {
       game.message.text(turncount + ' ' + game.turn.counter + ' ' + game.data.ui.seconds);
       if (game.turn.counter > 0) {
         if (countCallback) countCallback(side);
-        if (!((game.mode == 'local' || game.mode == 'single') && game.container.hasClass('option-state'))) {
+        if (!((game.mode == 'local' || game.mode == 'single' || game.debug) && game.container.hasClass('option-state'))) {
           game.turn.counter -= 1;
         }
         game.turn.timeout = game.timeout(1000, game.turn.count.bind(this, side, endCallback, countCallback));

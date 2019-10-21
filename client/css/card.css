@@ -7,7 +7,6 @@
   float: left;
 }
 
-
 .card {
   position: relative;
   display: inline-block;
@@ -114,27 +113,35 @@
 
 .card .current {
   position: absolute;
-  right: 8px;
-  letter-spacing: 0.4px;
-  top: 152px;
+  right: 7px;
+  top: 155px;
+  width: 26px;
 }
-
+.card .current h4, .card .current p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height: 12px;
+  text-align: center;
+}
 .card .current p {
-  /* font-weight: bold; */
-  text-shadow: 0px 0px 5px black;
+  font-size: 12px;
+  transform: scale(1, 1.25);
 }
 
-.card .current p b {
+.card .current h4 {
   font-size: 7px;
   line-height: 9px;
-  /* display: block; */
   color: #e9b008;
   display: block;
+  text-align: center;
+  margin: 0;
 }
 .card .current .amount {
-  margin: 0 0 8px 0;
-  font-size: 17px;
+  margin-bottom: 12px;
+  font-size: 11px;
   text-align: center;
+  transform: scale(1, 1.7);
 }
 
 .card .current span {
@@ -144,18 +151,10 @@
   font-size: 11px;
 }
 
-.card .current .hp span {
-}
-
-.map .card .current .damage span {
-
-background: #e80000;
-
-color: white;
-
-border-radius: 2px;
-
-padding: 1px 0px;
+.card .current > div {
+  /* background: #ed8c8c; */
+  color: white;
+  /* font-weight: normal; */
 }
 
 .card .desc {
@@ -811,28 +810,6 @@ padding: 1px 0px;
 .map .card .current, .card.dragTargetClone.fromMap .current {
   /* top: 22px; */
   right: 18px;
-}
-
-.map .card .current .damage b, .card.dragTargetClone.fromMap .current .damage b {
-    display: none;
-    /* background: #ed8c8c; */
-    color: white;
-    /* font-weight: normal; */
-}
-
-.map .card .current .damage, .card.dragTargetClone.fromMap .current .damage span {
-
-/* background: #ed8c8c; */
-
-color: white;
-
-/* font-weight: normal; */
-
-transform: translate(-18px, -6px) scale(5);
-
-padding-right: 1px;
-
-width: 23px;
 }
 
 .map .card .current .hp span, .card.dragTargetClone.fromMap .current .hp span {

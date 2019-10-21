@@ -4,10 +4,6 @@
   "start_url": "index.html",
   "background_color": "#22272c",
   "prefer_related_applications": true,
-  /*"related_applications": [{
-    "platform": "play",
-    "id": "fodaapp.herokuapp.com.foda"
-  }],*/
   "display": "fullscreen",
   "description": "Game",
   "icons": [{

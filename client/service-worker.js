@@ -3,8 +3,7 @@ var urlCache = [
   '/',
   'index.html',
   'bundle/game.min.js',
-  'bundle/game.min.css',
-  'img/banner.jpg'
+  'bundle/game.min.css'
 ];
 self.addEventListener('install', function (event) {
   event.waitUntil(caches.open(version).then(function (cache) {
