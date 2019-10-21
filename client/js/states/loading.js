@@ -113,9 +113,12 @@ game.states.loading = {
       type: 'GET',
       url: u,
       complete: function (response) { //console.log(name, response, game.states.loading.updating)*/
-        var data = JSON.parse(response.responseText);
-        console.log(data);
-
+        var data;
+        try {
+           data = JSON.parse(response.responseText);
+        } catch (error) {
+          console.log(response);
+        }
         if (!data.error) {
               //console.log(data);
 
