@@ -1,6 +1,5 @@
 .card > * {
   pointer-events: none;
-  /* text-align: right; */
 }
 
 .deck .card {
@@ -148,7 +147,7 @@
   text-align: center;
   line-height: 12px;
   display: block;
-  font-size: 11px;
+  font-size: 13px;
 }
 
 .card .current > div {
@@ -250,12 +249,8 @@
 .table .card.selected {
   box-shadow: 0 0 0 3px white;
 }
-.table .map .card.selected.player {
-  box-shadow: 0 0 0 8px #4db2dc;
-}
-
-.table .map .card.selected.enemy {
-  box-shadow: 0 0 0 8px red;
+.table .map .card.selected {
+  box-shadow: 0 0 0 8px white;
 }
 
 .card.left-hand.skills, .card.left-hand.skills .portrait {
@@ -686,25 +681,13 @@
   transform: translate3d(-50%, -50%, 40px) rotateX(-14deg);
 }
 
-.map .card.enemy .current .damage span {
-  background: #e80000;
-  color: white;
-  border-radius: 2px;
-  padding: 2px;
-}
-
 .map .card.enemy .current .hp span {
-  background: #00c000;
+  background: #ed8c8c;
   color: white;
-  border-radius: 2px;
-  padding: 2px;
 }
 
 .map .card .current .hp span {
-    background: #0053c0;
-    color: white;
-    border-radius: 2px;
-    padding: 1px 2px;
+  /* font-size: 14px; */
 }
 .map .card.towers .current .hp span {
   width: 19px;
@@ -799,23 +782,24 @@
 }
 
 .map .card fieldset, .card.dragTargetClone.fromMap fieldset {
-  /* padding-top: 88px; */
-  /* margin: 18px 5px; */
+  padding: 0;
+  margin: 18px 5px;
+  background-color: rgba(247, 250, 227, 0.6);
 }
 
 .map .card .portrait .img, .map .card .portrait .overlay, .card.dragTargetClone.fromMap .portrait .img, .card.dragTargetClone.fromMap .portrait .overlay {
-  height: 100%;
+  height: 265px;
 }
 
 .map .card .current, .card.dragTargetClone.fromMap .current {
-  /* top: 22px; */
+  top: 22px;
   right: 18px;
 }
 
 .map .card .current .hp span, .card.dragTargetClone.fromMap .current .hp span {
-  transform: translate(-6px, 40px) scale(4);
+  transform: translate(-10px, -4px) scale(6.4);
   padding-right: 1px;
-  width: 19px;
+  width: 21px;
 }
 
 /*TOWERS*/
