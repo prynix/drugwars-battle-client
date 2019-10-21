@@ -12,8 +12,9 @@ game.states.loading = {
   start: function () {
     // 
     window.addEventListener('message', game.states.loading.messageListener, false);
-    if (!game.debug) window.opener.postMessage('ready','*');
-    else game.states.loading.messageListener();
+    //if (!game.debug) 
+    window.opener.postMessage('ready','*');
+    //else game.states.loading.messageListener();
     // ===
     game.states.loading.updated();
     game.states.loading.json('ui', game.states.loading.updated);
@@ -108,7 +109,7 @@ game.states.loading = {
     game.mode = 'online';
     game.battle_id = data.id;
     var u = 'https://api.drugwars.io/fight/'+data.token+"/"+data.id;
-    if (game.debug) u = '/json/player1.json';
+    //if (game.debug) u = '/json/player1.json';
     $.ajax({
       type: 'GET',
       url: u,
@@ -117,7 +118,8 @@ game.states.loading = {
         try {
            data = JSON.parse(response.responseText);
         } catch (error) {
-          console.log(response);
+          data = response.responseText;
+          console.log(response,data);
         }
         if (!data.error) {
               //console.log(data);
