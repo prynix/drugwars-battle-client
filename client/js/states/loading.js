@@ -106,7 +106,8 @@ game.states.loading = {
   },
   battlejson: function (data,cb) {
     game.mode = 'online';
-    var u = 'https://api.drugwars.io/fight/'+id;
+    game.battle_id = data.id;
+    var u = 'https://api.drugwars.io/fight/'+data.token+"/"+data.id;
     if (game.debug) u = '/json/player1.json';
     $.ajax({
       type: 'GET',
