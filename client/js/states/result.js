@@ -94,7 +94,7 @@ game.states.result = {
   clear: function () {
     $('.result .results .heroes').remove();
     this.title.text('');
-    this.towers.text('');
+    //this.towers.text('');
     this.kills.text('');
     this.deaths.text('');
     this.turns.text('');
