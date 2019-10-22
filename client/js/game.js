@@ -30,6 +30,7 @@ var game = {
   id: null,
   battle_id: null,
   token: null,
+  client:null,
   size: 's5v5',
   timeoutArray: [],
   skills: {},
@@ -146,8 +147,8 @@ var game = {
     }
     var params = {};
     params.token = game.token;
-    window.dwclient = rawClient;
-    window.dwclient.request('login', params, function(err, result) {
+    game.client = rawClient;
+    game.client.request('login', params, function(err, result) {
       if (err) game.is_logged = false;
        game.is_logged = true;
     });
@@ -155,7 +156,7 @@ var game = {
   db: function (params, cb, str) {
     params.token = game.token;
     params.id = game.battle_id;
-    window.dwclient.request('battle_client', params, function(err, result) {
+    game.client.request('battle_client', params, function(err, result) {
       if (err) return cb(err);
       return cb(result);
     });
