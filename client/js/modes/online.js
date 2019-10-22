@@ -59,9 +59,9 @@ game.online = {
     game.states.config.enable();
   },
   ask: function () { //console.log('ask');
+  console.log(game);
     game.db({
-      'set': 'waiting',
-      'data': game.id,
+      type: 'waiting'
     }, function (waiting) {
       //console.log(waiting)
       game.triesCounter.text(game.tries += 1);

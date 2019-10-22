@@ -10,12 +10,6 @@ game.states.loading = {
     this.box = $('.state.loading .box');
   },
   start: function () {
-    // 
-    window.addEventListener('message', game.states.loading.messageListener, false);
-    //if (!game.debug) 
-    window.opener.postMessage('ready','*');
-    //else game.states.loading.messageListener();
-    // ===
     game.states.loading.updated();
     game.states.loading.json('ui', game.states.loading.updated);
     game.states.loading.dwjson('units', function () {
@@ -61,19 +55,27 @@ game.states.loading = {
     });
   },
   json: function (name, cb, translate) {
-    var u = game.dynamicHost + 'json/' + name + '.json';
-    if (translate) u = game.dynamicHost + 'json/' + game.language.dir + name + '.json';
-    $.ajax({
-      type: 'GET',
-      url: u,
-      complete: function (response) { //console.log(name, response, game.states.loading.updating)
-        var data = JSON.parse(response.responseText);
-        game.data[name] = data;
+    var u = './json/' + name + '.json';
+    //if (translate) 
+    u = game.dynamicHost +'json/' + game.language.dir + name + '.json';
+    $.getJSON(u, function(json) {
+      var data = json;
+      game.data[name] = data;
         if (cb) {
           cb(data);
         }
-      }
-    });
+      });
+    // $.ajax({
+    //   type: 'GET',
+    //   url: u,
+    //   complete: function (response) { console.log(name, response, game.states.loading.updating)
+    //     var data = JSON.parse(response.responseText);
+    //     game.data[name] = data;
+    //     if (cb) {
+    //       cb(data);
+    //     }
+    //   }
+    // });
   },
   dwjson: function (name, cb, translate) {
     //if (translate) u = game.dynamicHost + 'json/' + game.language.dir + name + '.json';
@@ -102,13 +104,9 @@ game.states.loading = {
     }
     return parsed;
   },
-  messageListener: function(event){
-    game.states.loading.battlejson((event ? event.data : 0), game.states.loading.updated);
-  },
-  battlejson: function (data,cb) {
+  battlejson: function (cb) {
     game.mode = 'online';
-    game.battle_id = data.id;
-    var u = 'https://api.drugwars.io/fight/'+data.token+"/"+data.id;
+    var u = 'https://api.drugwars.io/fight/'+game.token+"/"+game.battle_id;
     //if (game.debug) u = '/json/player1.json';
     $.ajax({
       type: 'GET',
