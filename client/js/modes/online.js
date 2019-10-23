@@ -117,7 +117,7 @@ game.online = {
     game.player.type = 'challenger';
     game.setData('challenger', game.player.name);
     // ask challenged name
-    game.db({ type: 'get' }, function (found) {
+    game.db({ type: 'get_battle' }, function (found) {
       //console.log('found:', found);
       var enemyName = found.challenged;
       if (enemyName === game.enemy.name || enemyName != game.player.name) { // tell player name
@@ -346,7 +346,7 @@ game.online = {
         if (game.tries > game.connectionLimit) {
           if (game.debug) game.reset('online.js: Unable to load enemy turn data');
           else {
-            game.db({ 'get': 'server' }, function (serverdata) {
+            game.db({ 'get_battle': 'server' }, function (serverdata) {
               if (serverdata.status == 'online') game.online.win();
             });
           }
