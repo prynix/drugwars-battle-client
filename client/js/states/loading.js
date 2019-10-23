@@ -16,12 +16,12 @@ game.states.loading = {
       game.states.loading.createUnitsStyle();
       game.states.loading.updated();
     });
-        // 
-        window.addEventListener('message', game.messageListener, false);
-        //if (!game.debug) 
-        window.opener.postMessage('ready', '*');
-        //else game.states.loading.messageListener();
-        // ===
+    // 
+    window.addEventListener('message', game.messageListener, false);
+    if (!game.debug) 
+    window.opener.postMessage('ready', '*');
+    else game.messageListener();
+    // ===
   },
   updated: function () { //console.trace(game.states.loading)
     game.states.loading.updating += 1;
