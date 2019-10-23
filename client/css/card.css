@@ -210,7 +210,7 @@
 
 .card.player {
   background-color: #404040;
-  background-image: url(//img.drugwars.io/cards/bkg/player.gif);
+  background-image: url(https://img.drugwars.io/cards/bkg/player.gif);
   background-size: 100% 100%;
 }/*
 .card.player.towers, .card.player.towers .portrait {
@@ -222,7 +222,7 @@
 }*/
 
 .card.enemy, .card.enemy .portrait {
-  background-image: url(//img.drugwars.io/cards/bkg/enemy.gif);
+  background-image: url(https://img.drugwars.io/cards/bkg/enemy.gif);
   /* background-color: #c55f5f; */
 }
 

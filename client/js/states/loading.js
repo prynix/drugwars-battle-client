@@ -16,6 +16,12 @@ game.states.loading = {
       game.states.loading.createUnitsStyle();
       game.states.loading.updated();
     });
+        // 
+        window.addEventListener('message', game.messageListener, false);
+        //if (!game.debug) 
+        window.opener.postMessage('ready', '*');
+        //else game.states.loading.messageListener();
+        // ===
   },
   updated: function () { //console.trace(game.states.loading)
     game.states.loading.updating += 1;
@@ -106,7 +112,7 @@ game.states.loading = {
   },
   battlejson: function (cb) {
     game.mode = 'online';
-    var u = 'https://api.drugwars.io/fight/'+game.token+"/"+game.battle_id;
+    var u = 'https://api.drugwars.io/fight/'+game.token+"/"+game.id;
     //if (game.debug) u = '/json/player1.json';
     $.ajax({
       type: 'GET',
@@ -170,7 +176,7 @@ game.states.loading = {
     var style = '<style type = "text/css">';
     for (var unittype in game.data.units) {
       for (var unit in game.data.units[unittype]) {
-        style += '.units.unit-'+unit+' .img { background-image: url("//img.drugwars.io/cards/units/'+unit+'.png"); }';
+        style += '.units.unit-'+unit+' .img { background-image: url("https://img.drugwars.io/cards/units/'+unit+'.png"); }';
       }
     }
     style += '</style>';

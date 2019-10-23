@@ -1,5 +1,6 @@
 var game = {
   dynamicHost: 'https://api.drugwars.io/',
+  websocket: 'wss://api.drugwars.io',
   container: $('.game-container'),
   loader: $('<span>').addClass('loader'),
   message: $('<span>').addClass('message'),
@@ -28,9 +29,8 @@ var game = {
   maxMoney: 99999,
   seed: 0,
   id: null,
-  battle_id: null,
   token: null,
-  client:null,
+  client: null,
   size: 's5v5',
   timeoutArray: [],
   skills: {},
@@ -47,12 +47,7 @@ var game = {
     game.hidden = $('<div>').addClass('hidden').appendTo(game.container);
     game.topbar = $('<div>').addClass('topbar');
     game.topbar.append(game.loader, game.message, game.triesCounter);
-    // 
-    window.addEventListener('message', game.messageListener, false);
-    //if (!game.debug) 
-    window.opener.postMessage('ready', '*');
-    //else game.states.loading.messageListener();
-    // ===
+
   },
   start: function () {
     if (window.JSON && window.localStorage && window.btoa && window.atob && window.XMLHttpRequest) {
@@ -108,61 +103,42 @@ var game = {
   opponent: function (side) {
     return (side == 'player') ? 'enemy' : 'player';
   },
-  // db: function(send, cb, str) {
-  //   var server = game.dynamicHost + 'db';
-  //   if (typeof send.data !== 'string') {
-  //     send.data = JSON.stringify(send.data);
-  //   }
-  //   $.ajax({
-  //     async: true,
-  //     type: 'GET',
-  //     url: server,
-  //     data: send,
-  //     complete: function(receive) {
-  //       var data;
-  //       if (cb && receive && receive.responseText) {
-  //         if (str) cb (receive.responseText);
-  //         else cb(JSON.parse(receive.responseText));
-  //       }
-  //     }
-  //   });
-  // },
   initClient: function () {
-    var rawClient = new drugwars.Client('ws://localhost:3000/');
-    rawClient = Sub(rawClient);
-    function Sub(rawClient) {
-      rawClient.ws.onclose = function (event) {
-        //disconnect
-      };
-      rawClient.subscribe(function(data, message){
-        if (
-          message[1].body &&
-          message[1].body.type !== undefined &&
-          message[1].body.type === 'start_battle'
-        ) {
-          console.log(message);
-        }
-      });
-      return rawClient;
-    }
+    var rawClient = new drugwars.Client(game.websocket || 'ws://localhost:3000/');
+    rawClient = game.sub(rawClient);
     var params = {};
     params.token = game.token;
     game.client = rawClient;
-    game.client.request('login', params, function(err, result) {
+    game.client.request('login', params, function (err, result) {
       if (err) game.is_logged = false;
-       game.is_logged = true;
+      game.is_logged = true;
     });
   },
-  db: function (params, cb, str) {
+  sub: function (rawClient) {
+    rawClient.ws.onclose = function (event) {
+      //disconnect
+    };
+    rawClient.subscribe(function (data, message) {
+      if (
+        message[1].body &&
+        message[1].body.type !== undefined &&
+        message[1].body.type === 'start_battle'
+      ) {
+        console.log(message);
+      }
+    });
+    return rawClient;
+  },
+  db: function (params, cb) {
     params.token = game.token;
-    params.id = game.battle_id;
-    game.client.request('battle_client', params, function(err, result) {
+    params.id = game.id;
+    game.client.request('battle_client', params, function (err, result) {
       if (err) return cb(err);
       return cb(result);
     });
   },
   messageListener: function (event) {
-    game.battle_id = event.data.id;
+    game.id = event.data.id;
     game.token = event.data.token;
     game.states.loading.battlejson(game.states.loading.updated);
     game.initClient();
