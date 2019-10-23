@@ -18,9 +18,11 @@ game.states.loading = {
     });
     // 
     window.addEventListener('message', game.messageListener, false);
-    if (!game.debug) 
     window.opener.postMessage('ready', '*');
-    else game.messageListener();
+
+    // if (!game.debug) 
+    // window.opener.postMessage('ready', '*');
+    // else game.messageListener();
     // ===
   },
   updated: function () { //console.trace(game.states.loading)
