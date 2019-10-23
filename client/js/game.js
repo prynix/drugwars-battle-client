@@ -104,7 +104,7 @@ var game = {
     return (side == 'player') ? 'enemy' : 'player';
   },
   initClient: function () {
-    var rawClient = new drugwars.Client(game.websocket || 'ws://localhost:3000/');
+    var rawClient = new drugwars.Client(game.websocket); //|| 'ws://localhost:3000/');
     rawClient = game.sub(rawClient);
     var params = {};
     params.token = game.token;
