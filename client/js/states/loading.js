@@ -10,15 +10,16 @@ game.states.loading = {
     this.box = $('.state.loading .box');
   },
   start: function () {
+    window.addEventListener('message', game.messageListener, false);
+    window.opener.postMessage('ready', '*');
     game.states.loading.updated();
     game.states.loading.json('ui', game.states.loading.updated);
+    console.log(game);
     game.states.loading.dwjson('units', function () {
       game.states.loading.createUnitsStyle();
       game.states.loading.updated();
     });
     // 
-    window.addEventListener('message', game.messageListener, false);
-    window.opener.postMessage('ready', '*');
 
     // if (!game.debug) 
     // window.opener.postMessage('ready', '*');
@@ -167,7 +168,7 @@ game.states.loading = {
               game.enemy.totalCards += unit.amount;
             }
           });
-
+          console.log(data);
           if (cb) {
             cb(data);
           }
