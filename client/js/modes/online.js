@@ -45,7 +45,7 @@ game.online = {
       });
     }
   },
-  backClick: function () { //console.log('back')
+  backClick: function () { //console.log('back');
     game.online.builded = false;
     game.online.started = false;
     game.db({
@@ -58,7 +58,7 @@ game.online = {
   enableConfig: function () {
     game.states.config.enable();
   },
-  ask: function () { //console.log('ask');
+  ask: function () { console.log('ask');
     game.db({
       type: 'ask'
     }, function (waiting) {
@@ -72,7 +72,7 @@ game.online = {
       }
     });
   },
-  wait: function () {// console.log('wait')
+  wait: function () {console.log('wait');
     game.loader.addClass('loading');
     game.setData('size', game.size);
     game.setData('id', game.id);
@@ -88,7 +88,7 @@ game.online = {
       setTimeout(game.online.searching, 1000);
     });
   },
-  searching: function () { //console.log('searching')
+  searching: function () { console.log('searching');
     //game.states.choose.back.attr({disabled: false});
     if (game.id && game.online.waiting) {
       game.db({ type: 'get_battle' }, function (found) {
