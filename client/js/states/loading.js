@@ -65,7 +65,7 @@ game.states.loading = {
   },
   json: function (name, cb, translate) {
     var u = './json/' + name + '.json';
-    if (translate) 
+    //if (translate) 
     u = game.dynamicHost +'json/' + game.language.dir + name + '.json';
     $.getJSON(u, function(json) {
       var data = json;
@@ -114,10 +114,7 @@ game.states.loading = {
     return parsed;
   },
   battlejson: function (cb) {
-    console.log('loading fight data');
     game.mode = 'online';
-    console.log(game);
-
     var u = 'https://api.drugwars.io/fight/'+game.token+"/"+game.id;
     //if (game.debug) u = '/json/player1.json';
     $.ajax({
@@ -168,7 +165,6 @@ game.states.loading = {
               game.enemy.totalCards += unit.amount;
             }
           });
-          console.log(data);
           if (cb) {
             cb(data);
           }

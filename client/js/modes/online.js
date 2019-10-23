@@ -93,7 +93,7 @@ game.online = {
     if (game.id && game.online.waiting) {
       game.db({ type: 'get_battle' }, function (found) {
         //console.log(game.player.name,game.enemy.name,found.challenger,found.id);
-        if (found.challenger != undefined && found.challenger !== found.challenged && found.id === game.id) {
+        if (!found.challenger && found.id === game.id) {
           game.online.waiting = false;
           game.online.challengerFound(found.challenger);
         } else {
