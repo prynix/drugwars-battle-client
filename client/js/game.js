@@ -1,5 +1,5 @@
 var game = {
-  dynamicHost: 'https://api.drugwars.io/',
+  dynamicHost: 'https://battle.drugwars.io/client/',
   websocket: 'wss://api.drugwars.io',
   container: $('.game-container'),
   loader: $('<span>').addClass('loader'),

@@ -62,8 +62,8 @@ game.states.loading = {
   },
   json: function (name, cb, translate) {
     var u = './json/' + name + '.json';
-    //if (translate) 
-    //u = game.dynamicHost +'json/' + game.language.dir + name + '.json';
+    if (translate) 
+    u = game.dynamicHost +'json/' + game.language.dir + name + '.json';
     $.getJSON(u, function(json) {
       var data = json;
       game.data[name] = data;
