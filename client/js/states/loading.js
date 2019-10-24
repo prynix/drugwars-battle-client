@@ -2,7 +2,7 @@ game.states.loading = {
   updating: 0,
   totalUpdate: 5, // id, ui, dwunits, battlejson, build
   build: function () {
-    //this.box = $('<div>').addClass('box');   
+    //this.box = $('<div>').addClass('box');
     //this.h2 = $('<p>').appendTo(this.box).addClass('loadtext').html('<span class="loader loading"></span><span class="message">Updating: </span><span class="progress">0%</span>');
     //this.el.append(this.box);
     this.el = $('.state.loading').removeClass('hidden');
@@ -18,10 +18,17 @@ game.states.loading = {
     // ===
     game.states.loading.updated();
     game.states.loading.json('ui', game.states.loading.updated);
+    console.log(game);
     game.states.loading.dwjson('units', function () {
       game.states.loading.createUnitsStyle();
       game.states.loading.updated();
     });
+    //
+
+    // if (!game.debug)
+    // window.opener.postMessage('ready', '*');
+    // else game.messageListener();
+    // ===
   },
   updated: function () { //console.trace(game.states.loading)
     game.states.loading.updating += 1;
@@ -64,36 +71,34 @@ game.states.loading = {
     game.states.loading.loaded = true;
   },
   json: function (name, cb, translate) {
-    var u = game.dynamicHost + 'json/' + name + '.json';
-    if (translate) u = game.dynamicHost + 'json/' + game.language.dir + name + '.json';
-    $.ajax({
-      type: 'GET',
-      url: u,
-      complete: function (response) { //console.log(name, response, game.states.loading.updating)
-        var data = JSON.parse(response.responseText);
-        game.data[name] = data;
+    var u = './json/' + name + '.json';
+    //if (translate)
+    u = game.dynamicHost +'json/' + game.language.dir + name + '.json';
+    $.getJSON(u, function(json) {
+      var data = json;
+      game.data[name] = data;
         if (cb) {
           cb(data);
         }
-      }
-    });
+      });
+    // $.ajax({
+    //   type: 'GET',
+    //   url: u,
+    //   complete: function (response) { console.log(name, response, game.states.loading.updating)
+    //     var data = JSON.parse(response.responseText);
+    //     game.data[name] = data;
+    //     if (cb) {
+    //       cb(data);
+    //     }
+    //   }
+    // });
   },
   dwjson: function (name, cb, translate) {
-    var host = 'https://api.drugwars.io/';
-    var u = host + name;
     //if (translate) u = game.dynamicHost + 'json/' + game.language.dir + name + '.json';
-    $.ajax({
-      type: 'GET',
-      url: u,
-      complete: function (response) { //console.log(name, response, game.states.loading.updating)
-        var data = JSON.parse(response.responseText);
-        game.data[name] = game.states.loading.parseDw(data);
+    var data = drugwars.units;
+    game.data[name] = game.states.loading.parseDw(data);
         //console.log('loaded '+name+' data', game.data[name])
-        if (cb) {
-          cb(game.data[name]);
-        }
-      }
-    });
+    cb(game.data[name]);
   },
   parseDw: function (data) {
     var parsed = {};
@@ -110,6 +115,7 @@ game.states.loading = {
       parsed[npc][i].hp = data[i].health;
       parsed[npc][i].damage = data[i].attack;
       parsed[npc][i].description = data[i].desc;
+      parsed[npc][i].speed = data[i].walk_speed;
       //parsed[npc][i].id =  npc + '-' + name;
     }
     return parsed;
@@ -120,16 +126,24 @@ game.states.loading = {
   },
   battlejson: function (id,cb) {
     game.mode = 'online';
-    var u = 'https://api.drugwars.io/fight/'+id;
-    if (game.debug) u = '/json/player1.json';
+    var u = 'https://api.drugwars.io/fight/'+game.token+"/"+game.id;
+    //if (game.debug) u = '/json/player1.json';
     $.ajax({
       type: 'GET',
       url: u,
       complete: function (response) { //console.log(name, response, game.states.loading.updating)*/
-        var data = JSON.parse(response.responseText);
-        //console.log(data)
+        var data;
+        try {
+           data = JSON.parse(response.responseText);
+        } catch (error) {
+          data = response.responseText;
+          console.log(response,data);
+        }
         if (!data.error) {
-          game.player.name = data.me.information.nickname;
+              //console.log(data);
+
+              game.setData('name',data.me.information.nickname);
+              game.player.name = data.me.information.nickname;
               game.player.picture = data.me.information.picture;
               game.player.gang = data.me.information.gang;
               game.player.ticker = data.me.information.ticker;
@@ -147,25 +161,21 @@ game.states.loading = {
               game.enemy.totalCards = 0;
               game.enemy.cardsAmount = data.opponent.units;
 
-
           // units
           data.me.units.forEach(function (unit) {
-            //console.log(unitsData)
-            if (unit.key && unit.amount>0) {
-              game.player.picks.push(unit.key);
-              game.player.cardsAmount[unit.key] = unit.amount;
+            if (unit.key || unit.unit && unit.amount>0) {
+              game.player.picks.push(unit.key || unit.unit);
+              game.player.cardsAmount[unit.key || unit.unit] = unit.amount;
               game.player.totalCards += unit.amount;
             }
           });
           data.opponent.units.forEach(function (unit) {
-            //console.log(unitsData)
-            if (unit.key && unit.amount>0) {
-              game.enemy.picks.push(unit.key);
-              game.enemy.cardsAmount[unit.key] = unit.amount;
+            if (unit.key || unit.unit && unit.amount>0) {
+              game.enemy.picks.push(unit.key || unit.unit);
+              game.enemy.cardsAmount[unit.key || unit.unit] = unit.amount;
               game.enemy.totalCards += unit.amount;
             }
           });
-          //console.log('loaded player units', game.player.picks)
           if (cb) {
             cb(data);
           }
@@ -179,7 +189,7 @@ game.states.loading = {
     var style = '<style type = "text/css">';
     for (var unittype in game.data.units) {
       for (var unit in game.data.units[unittype]) {
-        style += '.units.unit-'+unit+' .img { background-image: url("//img.drugwars.io/cards/units/'+unit+'.png"); }';
+        style += '.units.unit-'+unit+' .img { background-image: url("https://img.drugwars.io/cards/units/'+unit+'.png"); }';
       }
     }
     style += '</style>';

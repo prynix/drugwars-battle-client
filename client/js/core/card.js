@@ -63,6 +63,15 @@ game.card = {
       $('<div>').addClass('damage').appendTo(current).html('<h4>ATTACK</h4><p>' + data.damage + '</p>');
       data['current damage'] = data.damage;
     }
+    // if(card.hasClass("player") && game.player.cardsAmount[data.id] && game.player.cardsAmount[data.id] >0)
+    // {
+    //   data.hp = data.health * game.player.cardsAmount[data.id];
+    // }
+    // else if(card.hasClass("enemy") && game.enemy.cardsAmount[data.id] && game.enemy.cardsAmount[data.id] >0)
+    // {
+    //   console.log(game.enemy.cardsAmount[data.id])
+    //   data.hp = data.health * game.enemy.cardsAmount[data.id];
+    // }
     if (data.hp) {
       $('<div>').addClass('hp').appendTo(current).html('<h4>HEALTH</h4><p>' + data.hp + '</p>');
       data['current hp'] = data.hp;
@@ -120,17 +129,19 @@ game.card = {
       $('<p>').appendTo(desc).text(game.data.ui.heal + ': ' + data.heal);
     if (data['cards per turn'])
         $('<p>').appendTo(desc).text(game.data.ui.cards + ': ' + data['cards per turn']);
+            */
     if (data['skill cards'])
       $('<p>').appendTo(desc).text(game.data.ui.cards+': ' + data['skill cards']);
-    */
+
     if (data.buffsBox)
       $('<div>').addClass('buffs').appendTo(fieldset);
     $.each(data, function(item, value) {    
       if (value.constructor.name == 'Array' || value.constructor.name == 'Object') 
         value = JSON.stringify(value); 
-      //console.log(item, value )
+      //console.log(item, value );
       card.data(item, value);
     });
+
     card.append(legend).append(fieldset);
     return card;
   },
@@ -232,7 +243,8 @@ game.card = {
         game.states.table.selectedClone = null;
       }
       if (game.selectedCard.data('cast select') && game.selectedCard.data('source')) {
-        game.selectedCard.data('source', false);
+         console.log(game.selectedCard.data);
+          game.selectedCard.data('source', false);
       }
       game.selectedCard = null;
     }
@@ -543,8 +555,8 @@ game.card = {
     target.setCurrentHp(0);
     target.stopChanneling();
     if (target.data('bounty') && target.side() != source.side() && !target.data('wk-ult')) {
-      game.items.addMoney(source.side(), target.data('bounty'));
-      game.fx.text(spot, 'gold', '$'+target.data('bounty'), 2000);
+      //game.items.addMoney(source.side(), target.data('bounty'));
+      //game.fx.text(spot, 'gold', '$'+target.data('bounty'), 2000);
     }
     if (target.side() == source.side()) {
       game.fx.text(spot, 'deny', '!', 2000);

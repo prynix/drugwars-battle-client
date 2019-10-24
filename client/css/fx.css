@@ -998,6 +998,20 @@
   }
 }
 
+.map .fx.spawn-unit {
+  transform: rotateX(-20deg) translate3d(50px,50px,80px) scale(5.5);
+  width: 112px;
+  height: 112px;
+  animation: sprite-spawn-unit 1.1s steps(12) 1;
+  background-image: url('../img/fx/spawn-unit.png');
+}
+
+@keyframes sprite-spawn-unit {
+  100% {
+    background-position: -1344px;
+  }
+}
+
 .map .fx.ld-root {
   transform: rotateX(-2deg) translate3d(70px,-220px,0px) scale(4);
   width: 75px;

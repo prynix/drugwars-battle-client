@@ -85,8 +85,8 @@ game.enemy = {
         if (move[0] === 'S') { // SUMMON
           if (game.recovering && game.currentTurnSide == 'player') to = move[1];
           else to = game.map.mirrorPosition(move[1]);
-          creep = move[2];
-          game.enemy.summonCreepMove(to, creep);
+          unit = move[2];
+          game.enemy.summonUnitMove(to, unit);
         }
         if (move[0] === 'D') { // DISCARD
           hero = move[1];
@@ -215,16 +215,16 @@ game.enemy = {
       game.units.summonCreep(target, to, creep, event);
     }
   },
-  summonCreepMove: function(to, creep) {
+  summonUnitMove: function(to, unit) {
     var target = $('#' + to);
-    var creepCard = game[game.currentTurnSide||'enemy'].skills.sidehand.children('.creeps-' + creep).first();
-    if (target.hasClass('free') && creepCard.length) {
+    var unitCard = game[game.currentTurnSide||'enemy'].skills.hand.children('.unit-' + unit).first();
+    if (target.hasClass('free') && unitCard.length) {
       game.audio.play('activate');
-      creepCard.addClass('showMoves');
+      unitCard.addClass('showMoves');
       game.timeout(game.enemy.moveAnimation, function() {
-        game.fx.add('ld-return-target', target);
-        creepCard.removeClass('showMoves flipped').place(target);
-        creepCard.trigger('summon');
+        game.fx.add('spawn-unit', target);
+        unitCard.removeClass('showMoves flipped').place(target);
+        unitCard.trigger('summon');
       });
     }
   },

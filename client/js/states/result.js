@@ -3,7 +3,7 @@ game.states.result = {
     this.resultsbox = $('<div>').addClass('resultsbox box');
     this.title = $('<h1>').appendTo(this.resultsbox).addClass('resultTitle');
     this.sub = $('<div>').addClass('sub').appendTo(this.resultsbox);
-    this.towers = $('<h1>').appendTo(this.sub);
+    //this.towers = $('<h1>').appendTo(this.sub);
     this.kills = $('<h1>').appendTo(this.sub);
     this.deaths = $('<h1>').appendTo(this.sub);
     this.turns = $('<h1>').appendTo(this.sub);
@@ -34,7 +34,7 @@ game.states.result = {
   },
   update: function () {
     this.clear();
-    game.rank.send();
+    //game.rank.send();
     game.audio.stopSong();
     game.audio.loopSong('SneakyAdventure');
     if (game.mode == 'tutorial') game.tutorial.axe.addClass('show').appendTo(this.el);
@@ -94,7 +94,7 @@ game.states.result = {
   clear: function () {
     $('.result .results .heroes').remove();
     this.title.text('');
-    this.towers.text('');
+    //this.towers.text('');
     this.kills.text('');
     this.deaths.text('');
     this.turns.text('');

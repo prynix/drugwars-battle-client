@@ -7,6 +7,7 @@ game.deck = {
   },
   build: function (op) {
     var name = op.name,
+      side = op.side,
       filter = op.filter,
       cb = op.cb,
       multi = op.multi,

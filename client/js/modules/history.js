@@ -48,9 +48,9 @@ game.history = {
     var ctx = {state: state, recover: recover};
     if (game.debug) game.history.change.call(ctx, true);
     else {
-      var str = game.data.ui.welcome +' '+ game.getData('name') +'! '+ game.data.ui.log +'?';
-
-      game.overlay.confirm(game.history.change.bind(ctx), str);
+      //var str = game.data.ui.welcome +' '+ game.getData('name') +'! '+ game.data.ui.log +'?';
+      //game.overlay.confirm(game.history.change.bind(ctx), str);
+      game.history.change.bind(ctx);
     }
   },
   change: function (confirmed) {
@@ -58,7 +58,14 @@ game.history = {
     var recover = this.recover;
     if (confirmed) {
       if ('AudioContext' in window) game.audio.build();
-      game.states.changeTo('vs'/*state*/, recover);
+      //game.states.changeTo(state, recover);
+      //game.setMode('online');
+      //console.log(game);
+      game.states.config.size('s1v1');
+      game.online.check('first');
+      game.online.start();
+      game.states.changeTo('choose');
+      //game.states.changeTo('vs'/*state*/, recover);
     } else game.states.changeTo('vs');
   },
   match: function(mode, recovering) {

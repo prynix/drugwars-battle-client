@@ -65,7 +65,7 @@ game.units = {
   },
   summonCreep: function(target, to, creep, event) {
     var card = game.selectedCard;
-    game.fx.add('ld-return-target', target);
+    game.fx.add('spawn-unit', target);
     if (target.hasClass('free')) {
       game.audio.play('activate');
       if (card.canPlay()) game.highlight.clearMap();

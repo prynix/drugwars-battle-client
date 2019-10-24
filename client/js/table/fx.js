@@ -69,6 +69,9 @@ game.fx = {
       hit: ['hit']
     }
   },
+  units:{
+    spawn:['spawn-unit']
+  },
   build: function() {
     var img = $('<img>').appendTo(game.hidden);
     img.attr({ src: '/img/fx/ultfx.png' });
@@ -111,7 +114,7 @@ game.fx = {
     var hero = a[0];
     var skill = a[1];
     //console.log(hero,skill,name)
-    if ( !game.recovering && game.fx.heroes[hero] && game.fx.heroes[hero][skill]) {
+    if ( !game.recovering && game.fx.heroes[hero] && game.fx.heroes[hero][skill] || game.fx.units[hero]) {
       game.fx.stop(name, source);
       var side = $(source).side();
       if (!side) side = 'neutral';

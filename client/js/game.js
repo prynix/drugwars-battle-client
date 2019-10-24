@@ -1,5 +1,6 @@
 var game = {
-  dynamicHost: 'https://api.drugwars.io/',
+  dynamicHost: 'https://battle.drugwars.io/client/',
+  websocket: 'wss://api.drugwars.io',
   container: $('.game-container'),
   loader: $('<span>').addClass('loader'),
   message: $('<span>').addClass('message'),
@@ -28,15 +29,17 @@ var game = {
   maxMoney: 99999,
   seed: 0,
   id: null,
+  token: null,
+  client: null,
   size: 's5v5',
   timeoutArray: [],
   skills: {},
   data: {},//json {heroes, skills, ui, units, campaign}
-  mode: '', //online, tutorial, single, library
+  mode: 'online', //online, tutorial, single, library
   currentData: {}, // all game info and moves. should be able to recreate a table
   currentState: 'noscript', //unsupported, loading, vs, table, results
   heroesAI: {}, // heroes default AI behaviour
-  build: function() {
+  build: function () {
     game.utils();
     game.history.build();
     game.events.build();
@@ -44,12 +47,13 @@ var game = {
     game.hidden = $('<div>').addClass('hidden').appendTo(game.container);
     game.topbar = $('<div>').addClass('topbar');
     game.topbar.append(game.loader, game.message, game.triesCounter);
+
   },
-  start: function() {
+  start: function () {
     if (window.JSON && window.localStorage && window.btoa && window.atob && window.XMLHttpRequest) {
       if (game.debug) {
         game.container.addClass('debug');
-        game.dynamicHost = '';
+        game.dynamicHost = 'https://battle.drugwars.io/client/';
       }
       game.build();
       game.screen.detectDark();
@@ -57,19 +61,20 @@ var game = {
     } else
       game.states.changeTo('unsupported');
   },
-  newId: function() {
+  newId: function (id) {
     game.newSeed();
-    game.id = btoa(game.seed) + '|' + btoa(new Date().valueOf());
+    game.id = id;
+    //game.id = btoa(game.seed) + '|' + btoa(new Date().valueOf());
   },
-  setId: function(id) {
+  setId: function (id) {
     game.id = id;
     game.setSeed(id);
   },
-  newSeed: function() {
+  newSeed: function () {
     game.seed = Math.floor(Math.random() * 1E16);
     game.setData('seed', game.seed);
   },
-  setSeed: function(id) {
+  setSeed: function (id) {
     //console.trace(id);
     if (id) {
       var n = id.split('|');
@@ -79,14 +84,14 @@ var game = {
       }
     }
   },
-  setData: function(item, data) { //console.trace('set', item, data)
+  setData: function (item, data) { //console.trace('set', item, data)
     game.currentData[item] = data;
-    localStorage.setItem('DW-data-'+item, JSON.stringify(data));
+    localStorage.setItem('DW-data-' + item, JSON.stringify(data));
   },
-  getData: function(item) {
+  getData: function (item) {
     if (!game.currentData[item]) {
-      var saved = localStorage.getItem('DW-data-'+item);
-      if (typeof(saved) !== undefined) game.currentData[item] = JSON.parse(saved);
+      var saved = localStorage.getItem('DW-data-' + item);
+      if (typeof (saved) !== undefined) game.currentData[item] = JSON.parse(saved);
     }
     return game.currentData[item];
   },
@@ -95,34 +100,55 @@ var game = {
     if (game.mode == 'local') can = game.currentTurnSide;
     return can;
   },
-  opponent: function(side) {
+  opponent: function (side) {
     return (side == 'player') ? 'enemy' : 'player';
   },
-  db: function(send, cb, str) {
-    var server = game.dynamicHost + 'db';
-    if (typeof send.data !== 'string') {
-      send.data = JSON.stringify(send.data);
-    }
-    $.ajax({
-      async: true,
-      type: 'GET',
-      url: server,
-      data: send,
-      complete: function(receive) {
-        var data;
-        if (cb && receive && receive.responseText) {
-          if (str) cb (receive.responseText);
-          else cb(JSON.parse(receive.responseText));
-        }
-      }
+  initClient: function () {
+    var rawClient = new drugwars.Client(game.websocket); //|| 'ws://localhost:3000/');
+    rawClient = game.sub(rawClient);
+    var params = {};
+    params.token = game.token;
+    game.client = rawClient;
+    game.client.request('login', params, function (err, result) {
+      if (err) game.is_logged = false;
+      game.is_logged = true;
     });
   },
-  random: function() {
+  sub: function (rawClient) {
+    rawClient.ws.onclose = function (event) {
+      //disconnect
+    };
+    rawClient.subscribe(function (data, message) {
+      if (
+        message[1].body &&
+        message[1].body.type !== undefined &&
+        message[1].body.type === 'start_battle'
+      ) {
+        console.log(message);
+      }
+    });
+    return rawClient;
+  },
+  db: function (params, cb) {
+    params.token = game.token;
+    params.id = game.id;
+    game.client.request('battle_client', params, function (err, result) {
+      if (err) return cb(err);
+      return cb(result);
+    });
+  },
+  messageListener: function (event) {
+    game.id = event.data.id;
+    game.token = event.data.token;
+    game.states.loading.battlejson(game.states.loading.updated);
+    game.initClient();
+  },
+  random: function () {
     game.seed += 1;
     return parseFloat('0.' + Math.sin(game.seed).toString().substr(6));
   },
   validModes: ['tutorial', 'online', 'library', 'single', 'local'],
-  setMode: function(mode, recover) {
+  setMode: function (mode, recover) {
     if (mode && game[mode] && game[mode].build && game.validModes.indexOf(mode) >= 0) {
       game.mode = mode;
       game.setData('mode', mode);
@@ -144,7 +170,7 @@ var game = {
     game.setData('matchData', false);
     game.setData('seed', false);
   },
-  clear: function() {
+  clear: function () {
     game.message.removeClass('alert').html('');
     if (game.mode && game[game.mode] && game[game.mode].clear) {
       game[game.mode].clear();
@@ -157,13 +183,13 @@ var game = {
     game.mode = false;
     game.setData('mode', false);
   },
-  resolve: function(path, obj) {
-    return path.split('.').reduce(function(prev, curr) {
-        return prev ? prev[curr] : null;
+  resolve: function (path, obj) {
+    return path.split('.').reduce(function (prev, curr) {
+      return prev ? prev[curr] : null;
     }, obj || game);
   },
-  reset: function(details) {
-    game.overlay.confirm(details, function(confirmed) {
+  reset: function (details) {
+    game.overlay.confirm(details, function (confirmed) {
       if (confirmed) {
         //game.clear();
         //game.setData('state', 'menu');
