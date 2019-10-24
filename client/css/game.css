@@ -361,7 +361,7 @@ input:focus {
   box-shadow: 0 4px 0 #1b231f;
 }
 .button.highlight:hover {
-  background: #82c19f;
+  background: #080e0b;
 }
 
 .button.alert, .button.alert[disabled]:active  {

@@ -1,6 +1,6 @@
 game.states.loading = {
   updating: 0,
-  totalUpdate: 4, // ui, dwunits, battlejson, build
+  totalUpdate: 5, // id, ui, dwunits, battlejson, build
   build: function () {
     //this.box = $('<div>').addClass('box');   
     //this.h2 = $('<p>').appendTo(this.box).addClass('loadtext').html('<span class="loader loading"></span><span class="message">Updating: </span><span class="progress">0%</span>');
@@ -10,10 +10,11 @@ game.states.loading = {
     this.box = $('.state.loading .box');
   },
   start: function () {
-    // 
-    window.addEventListener('message', game.states.loading.messageListener, false);
-    if (!game.debug) window.opener.postMessage('ready','*');
-    else game.states.loading.messageListener();
+    // receive ID
+    if (!game.debug) {
+      window.addEventListener('message', game.states.loading.messageListener, false);
+      window.opener.postMessage('ready','*');
+    } else game.states.loading.messageListener();
     // ===
     game.states.loading.updated();
     game.states.loading.json('ui', game.states.loading.updated);
@@ -30,34 +31,37 @@ game.states.loading = {
     var loading = parseInt(game.states.loading.updating / game.states.loading.totalUpdate * 100);
     $('.progress').text(loading + '%');
     if (game.states.loading.updating >= game.states.loading.totalUpdate) {
-      game.states.loading.finished();
+      game.timeout(100, game.states.loading.finished);
     }
   },
   preloadimgs: ['map/bkg.jpg'],
   imgload: 0,
-  finished: function () {
-    game.states.loading.box.addClass('hidden');
-    game.container.append(game.topbar).addClass('loaded');
-    game.options.build();
-    game.states.build( function () {
-      //preloadimgs
-      $.each(game.states.loading.preloadimgs, function () {
-        $('<img>').attr('src', 'img/'+this).on('load', function () {
-          game.states.loading.imgload++;
-          if (game.states.loading.imgload == game.states.loading.preloadimgs.length) {
-            game.states.table.el.addClass('loaded');
-          }
-        }).appendTo(game.hidden);
+  finished: function () { console.trace(this)
+    if (!game.states.loading.loaded) {
+      game.states.loading.box.addClass('hidden');
+      game.container.append(game.topbar).addClass('loaded');
+      game.options.build();
+      game.states.build( function () {
+        //preloadimgs
+        $.each(game.states.loading.preloadimgs, function () {
+          $('<img>').attr('src', 'img/'+this).on('load', function () {
+            game.states.loading.imgload++;
+            if (game.states.loading.imgload == game.states.loading.preloadimgs.length) {
+              game.states.table.el.addClass('loaded');
+            }
+          }).appendTo(game.hidden);
+        });
+        game.units.build('player');
+        game.units.build('enemy');
+        game.timeout(400, function () {
+          game.screen.resize();
+          game.options.opt.show();
+          // FINISHED
+          game.history.recover();
+        });
       });
-      game.units.build('player');
-      game.units.build('enemy');
-      game.timeout(400, function () {
-        game.screen.resize();
-        game.options.opt.show();
-        // FINISHED
-        game.history.recover();
-      });
-    });
+    }
+    game.states.loading.loaded = true;
   },
   json: function (name, cb, translate) {
     var u = game.dynamicHost + 'json/' + name + '.json';
@@ -111,6 +115,7 @@ game.states.loading = {
     return parsed;
   },
   messageListener: function(event){
+    game.states.loading.updated();
     game.states.loading.battlejson((event ? event.data : 0), game.states.loading.updated);
   },
   battlejson: function (id,cb) {
