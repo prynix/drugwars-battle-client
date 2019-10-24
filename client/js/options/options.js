@@ -34,8 +34,8 @@ game.options = {
       this.dark.prop('checked', true);
     }
     // lang
-    this.lang = $('<div>').appendTo(this.box).addClass('lang').attr({title: game.data.ui.lang}).append($('<h2>').text(game.data.ui.lang));
-    this.langSelect = game.language.select().appendTo(this.lang);
+    //this.lang = $('<div>').appendTo(this.box).addClass('lang').attr({title: game.data.ui.lang}).append($('<h2>').text(game.data.ui.lang));
+    //this.langSelect = game.language.select().appendTo(this.lang);
     //audio
     this.audio = $('<div>').appendTo(this.row).addClass('audioconfig').append($('<h2>').text(game.data.ui.audioconfig));
     this.muteinput = $('<input>').attr({type: 'checkbox', name: 'mute'});
