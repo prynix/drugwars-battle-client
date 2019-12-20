@@ -32,6 +32,7 @@
   padding: 10px 20px;
   background: rgba(0,0,0,0.6);
   transform-style: preserve-3d;
+  overflow: hidden;
 }
 
 .vsdeckplayer {
@@ -43,6 +44,10 @@
 .vsplayer {
   transform: translate(100px, 315px) rotateY(6deg) rotateZ(2.7deg);
   text-align: left;
+}
+
+.vsplayer h1 {
+  text-align: right;
 }
 
 .vsplayerinfo, .vsenemyinfo {
@@ -66,6 +71,9 @@
   transform: translate(-10px,30px) rotateY(-6deg) rotateZ(2.7deg);
   text-align: right;
 }
+.vsenemy h1 {
+  text-align: left;
+}
 
 .vsenemyinfo {
   left: auto;
@@ -88,7 +96,7 @@
 }
 
 .vs .card {
-  margin-right: -65px;
+  margin-right: -75px;
 }
 .vs .card .speed {
   /* display: none; */

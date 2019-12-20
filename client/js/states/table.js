@@ -38,8 +38,9 @@ game.states.table = {
     } else game.states.changeTo('menu');
   },
   music: function () {
-    if (game.mode == 'library') game.audio.loopSong('Perspectives');
-    else game.audio.loopSong('DrugWars');
+    //if (game.mode == 'library') game.audio.loopSong('Perspectives');
+    //else 
+    game.audio.loopSong('DrugWars');
   },
   enableUnselect: function () {
     game.states.table.el.on('mousedown touchstart', function (event) { 

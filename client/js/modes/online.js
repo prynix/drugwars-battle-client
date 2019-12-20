@@ -18,7 +18,8 @@ game.online = {
     game.loader.addClass('loading');
     game.message.text(game.data.ui.loading);
     game.tries = 0;
-    game.online.ask();
+    //game.online.ask();
+    game.online.found(game.enemy.name);
   },
   check: function (first) {
     if (game.online.builded && !game.online.started) {
@@ -57,8 +58,8 @@ game.online = {
   },
   enableConfig: function () {
     game.states.config.enable();
-  },
-  ask: function () { console.log('ask');
+  },/*
+  ask: function () { console.trace('ask');
     game.db({
       type: 'ask'
     }, function (waiting) {
@@ -71,7 +72,7 @@ game.online = {
         setTimeout(game.online.ask, 1000);
       }
     });
-  },
+  },*/
   wait: function () {console.log('wait');
     game.loader.addClass('loading');
     game.setData('size', game.size);
@@ -143,7 +144,8 @@ game.online = {
     game.message.html(game.data.ui.battlefound + ' <b>' + game.player.name + '</b> vs <b class="enemy">' + game.enemy.name + '</b>');
     //game.states.choose.counter.show();
     game.audio.play('battle');
-    setTimeout(game.online.enablePick, 400);
+    game.states.changeTo('vs');
+    //setTimeout(game.online.enablePick, 400);
   },
   chooseStart: function () {
     game.states.choose.randombt.show().attr({ disabled: true });
@@ -158,9 +160,9 @@ game.online = {
     var state = game.history.state;
     var recover = game.history.recover;
     game.states.changeTo('vs'/*state*/, recover);
-    game.states.choose.count = game.timeToPick;
-    setTimeout(game.online.pickCount, 1000);
-  },
+    //game.states.choose.count = game.timeToPick;
+    //setTimeout(game.online.pickCount, 1000);
+  },/*
   pickCount: function () {
     game.states.choose.count -= 1;
     if ($('.slot.available').length) {
@@ -229,7 +231,7 @@ game.online = {
     game.setData(game.enemy.type + 'Deck', game.enemy.picks);
     game.states.choose.clear();
     game.states.changeTo('vs');
-  },
+  },*/
 
   setTable: function () {
     if (!game.online.table) {

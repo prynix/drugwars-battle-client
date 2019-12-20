@@ -1,15 +1,14 @@
 game.states.loading = {
   updating: 0,
-  totalUpdate: 5, // id, socket, battlejson, ui, dwunits
+  totalUpdate: 4, // id, socket, battlejson, ui
   build: function () {
     this.el = $('.state.loading').removeClass('hidden');
     this.h2 = $('.state.loading .loadtext');
     this.box = $('.state.loading .box');
   },
   start: function () {
-    game.states.loading.json('ui', game.states.loading.updated);
+    game.states.loading.json('ui', game.states.loading.updated); // ui
     game.socket.receiveID(game.states.loading.updated); // id, socket, battlejson
-    game.socket.dwjson('units', game.states.loading.updated);
   },
   updated: function () { //console.trace(game.states.loading)
     game.states.loading.updating += 1;
@@ -22,9 +21,9 @@ game.states.loading = {
       game.timeout(100, game.states.loading.finished);
     }
   },
-  preloadimgs: ['map/bkg.jpg'],
+  preloadimgs: ['bkg/dw.png'],
   imgload: 0,
-  finished: function () { console.trace(this)
+  finished: function () { //console.trace(this)
     if (!game.states.loading.loaded) {
       game.states.loading.box.addClass('hidden');
       game.container.append(game.topbar).addClass('loaded');

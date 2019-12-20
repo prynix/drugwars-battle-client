@@ -62,7 +62,7 @@ game.options = {
     //RES
     $('input[name=resolution]', '.screenresolution').on('change', game.screen.changeResolution);
     //Lang
-    game.options.langSelect.on('change', game.language.click);
+    //game.options.langSelect.on('change', game.language.click);
     //MUTE
     $('input[name=mute]', '.audioconfig').on('change', game.audio.mute);
     //VOL

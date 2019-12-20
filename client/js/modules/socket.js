@@ -13,15 +13,16 @@ game.socket = {
     game.socket.initClient(game.socket.cb);
     game.socket.battlejson(game.socket.cb);
   },
-  initClient: function (cb) {
-    var rawClient = new drugwars.Client(game.websocket); //|| 'ws://localhost:3000/');
-    rawClient = game.socket.sub(rawClient);
-    var params = {};
-    params.token = game.token;
-    game.client = rawClient;
+  initClient: function (cb) { // game.websocket = wss://api.drugwars.io || ws://localhost:3000
+    game.socket.rawClient = new drugwars.Client(game.websocket); 
+    game.client = game.socket.sub(game.socket.rawClient);
+    var params = {token: game.token};
     game.client.request('login', params, function (err, result) {
-      if (err) game.is_logged = false;
-      else {
+      if (!game.debug && err) {
+        game.is_logged = false;
+        if (game.debug && typeof(err) == 'string' ) game.overlay.alert(err);
+        else console.log(err);
+      } else {
         game.is_logged = true;
         cb();
       }
@@ -30,6 +31,7 @@ game.socket = {
   sub: function (rawClient) {
     rawClient.ws.onclose = function (event) {
       //disconnect
+      if (game.debug) console.log('socket disconnected');
     };
     rawClient.subscribe(function (data, message) {
       if (
@@ -42,11 +44,11 @@ game.socket = {
     });
     return rawClient;
   },
-  dwjson: function (name, cb) {
+  dwData: function (name, cb) {
     var data = drugwars.units;
     game.data[name] = game.socket.parseDw(data);
     game.socket.createUnitsStyle();
-    game.states.loading.updated();
+    if (cb) cb();
     //console.log('loaded '+name+' data', game.data[name])
   },
   parseDw: function (data) {
@@ -69,7 +71,7 @@ game.socket = {
     }
     return parsed;
   },
-  battlejson: function (id, cb) {
+  battlejson: function (cb) {
     game.mode = 'online';
     var u = 'https://api.drugwars.io/fight/'+game.token+"/"+game.id;
     if (game.debug) u = '/json/player1.json';

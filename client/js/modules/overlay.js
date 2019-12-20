@@ -3,7 +3,7 @@ game.overlay = {
     game.overlay.el = $('<div>').addClass('game-overlay hidden').appendTo(game.container);
     game.overlay.el.on('click tap', function (event) {
       if (event.target == game.overlay.el[0]) {
-        if (game.overlay.cb) {
+        if (typeof game.overlay.cb == 'function') {
           game.overlay.cb();
           game.overlay.cb = false;
         }

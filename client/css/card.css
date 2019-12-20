@@ -784,7 +784,7 @@
 .map .card fieldset, .card.dragTargetClone.fromMap fieldset {
   padding: 0;
   margin: 18px 5px;
-  background-color: rgba(247, 250, 227, 0.6);
+  /* background-color: rgba(247, 250, 227, 0.6); */
 }
 
 .map .card .portrait .img, .map .card .portrait .overlay, .card.dragTargetClone.fromMap .portrait .img, .card.dragTargetClone.fromMap .portrait .overlay {

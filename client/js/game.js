@@ -56,7 +56,9 @@ var game = {
       }
       game.build();
       game.screen.detectDark();
-      game.states.changeTo('loading');
+      game.socket.dwData('units', function () {
+        game.states.changeTo('loading');
+      });
     } else
       game.states.changeTo('unsupported');
   },
